@@ -17,7 +17,8 @@ public class OrderValidatorTest {
 	@ParameterizedTest
 	@ValueSource(strings = {"해산물파스타--2,레드와인-1,초코케이크-1", "2-해산물파스타,레드와인-1,초코케이크-1", "해산물파스타--2,redwine-1,초코케이크-1"})
 	void whenOrderFormatIsInvalidThrowException(String input) {
-		assertThatThrownBy(() -> orderValidator.validateOrderFormat(input))
+		String[] invalidOrders = input.split(",");
+		assertThatThrownBy(() -> orderValidator.validatePattern(invalidOrders))
 			.isExactlyInstanceOf(IllegalOrderException.class)
 			.hasMessageContaining(INVALID_ORDER_MESSAGE);
 	}
@@ -25,9 +26,19 @@ public class OrderValidatorTest {
 	@DisplayName("주문 수량이 1이상이 아닐 경우 예외를 던진다.")
 	@Test
 	void whenOrderQuantityIsInvalidThrowException() {
-		String invalidInput = "해산물파스타-0,레드와인-1,초코케이크-1";
-		assertThatThrownBy(() -> orderValidator.validateOrderFormat(invalidInput))
+		String[] invalidOrders = {"해산물파스타-0", "레드와인-1", "초코케이크-1"};
+		assertThatThrownBy(() -> orderValidator.validateQuantity(invalidOrders))
 			.isExactlyInstanceOf(IllegalOrderException.class)
 			.hasMessageContaining(INVALID_ORDER_MESSAGE);
 	}
+
+	@DisplayName("중복 메뉴가 존재하는 경우 예외를 던진다.")
+	@Test
+	void whenOrderIsDuplicatedThrowException() {
+		String[] invalidOrders = {"해산물파스타-1", "해산물파스타-1", "레드와인-1"};
+		assertThatThrownBy(() -> orderValidator.validateDuplication(invalidOrders))
+			.isExactlyInstanceOf(IllegalOrderException.class)
+			.hasMessageContaining(INVALID_ORDER_MESSAGE);
+	}
+
 }
