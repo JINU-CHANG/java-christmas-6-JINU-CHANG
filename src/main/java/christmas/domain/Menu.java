@@ -1,5 +1,9 @@
 package christmas.domain;
 
+import java.util.Arrays;
+
+import christmas.exception.IllegalOrderException;
+
 public enum Menu {
 	MUSHROOM_SOUP(Type.APPETIZER, "양송이수프", 6_000),
 	TAPAS(Type.APPETIZER, "타파스", 5_500),
@@ -21,5 +25,12 @@ public enum Menu {
 		this.type = type;
 		this.name = name;
 		this.price = price;
+	}
+
+	public static Menu from(String input) {
+		return Arrays.stream(Menu.values())
+			.filter(name -> name.equals(input))
+			.findFirst()
+			.orElseThrow(IllegalOrderException::new);
 	}
 }
