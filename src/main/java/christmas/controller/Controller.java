@@ -1,5 +1,9 @@
 package christmas.controller;
 
+import java.util.function.Supplier;
+
+import christmas.domain.VisitDate;
+import christmas.exception.CommonIllegalArgumentException;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 
@@ -14,6 +18,19 @@ public class Controller {
 
 	public void run() {
 		outputView.printGreeting();
-		inputView.readVisitDate();
+		tryUntilInputIsValid(this::getVisitDate);
+	}
+
+	private VisitDate getVisitDate() {
+		return new VisitDate(inputView.readVisitDate());
+	}
+
+	private <T> T tryUntilInputIsValid(Supplier<T> function) {
+		try {
+			return function.get();
+		} catch (CommonIllegalArgumentException e) {
+			System.out.println(e.getMessage());
+			return tryUntilInputIsValid(function);
+		}
 	}
 }
