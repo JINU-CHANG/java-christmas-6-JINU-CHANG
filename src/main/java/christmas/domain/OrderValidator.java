@@ -4,9 +4,9 @@ import java.util.Arrays;
 
 import christmas.exception.IllegalOrderException;
 import christmas.exception.IllegalOrderQuantityException;
+import christmas.util.OrderParser;
 
 public class OrderValidator {
-	private static final String MENU_QUANTITY_DELIMITER = "-";
 	private static final String FORMAT_PATTERN = "[가-힣]+-\\d";
 	private static final int MAX_TOTAL_QUANTITY = 20;
 
@@ -39,28 +39,19 @@ public class OrderValidator {
 
 	private boolean isInvalidQuantity(String[] orders) {
 		return Arrays.stream(orders)
-			.mapToInt(this::parseQuantity)
+			.mapToInt(OrderParser::parseQuantity)
 			.anyMatch(quantity -> quantity < 1);
 	}
 
 	private boolean isInvalidTotalQuantity(String[] orders) {
 		return Arrays.stream(orders)
-			.mapToInt(this::parseQuantity)
+			.mapToInt(OrderParser::parseQuantity)
 			.sum() > MAX_TOTAL_QUANTITY;
-	}
-
-	private int parseQuantity(String order) {
-		String quantity = order.split(MENU_QUANTITY_DELIMITER)[1];
-		return Integer.parseInt(quantity);
 	}
 
 	private boolean isDuplicated(String[] orders) {
 		return Arrays.stream(orders)
-			.map(this::parseMenuName)
+			.map(OrderParser::parseMenuName)
 			.distinct().count() != orders.length;
-	}
-
-	private String parseMenuName(String order) {
-		return order.split(MENU_QUANTITY_DELIMITER)[0];
 	}
 }

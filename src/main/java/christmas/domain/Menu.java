@@ -2,7 +2,7 @@ package christmas.domain;
 
 import java.util.Arrays;
 
-import christmas.exception.IllegalOrderException;
+import christmas.exception.MenuNotFoundException;
 
 public enum Menu {
 	MUSHROOM_SOUP(Type.APPETIZER, "양송이수프", 6_000),
@@ -29,8 +29,8 @@ public enum Menu {
 
 	public static Menu from(String input) {
 		return Arrays.stream(Menu.values())
-			.filter(name -> name.equals(input))
+			.filter(menu -> menu.name.equals(input))
 			.findFirst()
-			.orElseThrow(IllegalOrderException::new);
+			.orElseThrow(MenuNotFoundException::new);
 	}
 }
