@@ -9,6 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import christmas.exception.MenuNotFoundException;
+import christmas.util.OrderValidator;
 
 public class OrderFormTest {
 	@DisplayName("존재하지 않는 메뉴를 입력하는 경우 예외를 던진다.")
@@ -16,8 +17,7 @@ public class OrderFormTest {
 	void whenMenuNotExistedThrowException() {
 		String invalidOrders = "해산물파스타-1,화이트와인-1,초코케이크-1";
 		VisitDate visitDate = new VisitDate(1);
-		OrderValidator orderValidator = new OrderValidator();
-		OrderInput orderInput = new OrderInput(invalidOrders, orderValidator);
+		OrderInput orderInput = new OrderInput(invalidOrders);
 
 		assertThatThrownBy(() -> new OrderForm(visitDate, orderInput))
 			.isExactlyInstanceOf(MenuNotFoundException.class)
@@ -29,8 +29,7 @@ public class OrderFormTest {
 	void createOrderForm() {
 		String invalidOrders = "해산물파스타-1,레드와인-1,초코케이크-1";
 		VisitDate visitDate = new VisitDate(1);
-		OrderValidator orderValidator = new OrderValidator();
-		OrderInput orderInput = new OrderInput(invalidOrders, orderValidator);
+		OrderInput orderInput = new OrderInput(invalidOrders);
 
 		OrderForm orderForm = new OrderForm(visitDate, orderInput);
 

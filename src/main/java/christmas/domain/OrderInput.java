@@ -1,13 +1,12 @@
 package christmas.domain;
 
 import christmas.util.OrderParser;
+import christmas.util.OrderValidator;
 
 public class OrderInput {
-	private final OrderValidator orderValidator;
 	private final String orders;
 
-	public OrderInput(String input, OrderValidator orderValidator) {
-		this.orderValidator = orderValidator;
+	public OrderInput(String input) {
 		validateOrders(input);
 		this.orders = input;
 	}
@@ -18,8 +17,8 @@ public class OrderInput {
 
 	private void validateOrders(String input) {
 		String[] orders = OrderParser.parseOrders(input);
-		orderValidator.validatePattern(orders);
-		orderValidator.validateQuantity(orders);
-		orderValidator.validateDuplication(orders);
+		OrderValidator.validatePattern(orders);
+		OrderValidator.validateQuantity(orders);
+		OrderValidator.validateDuplication(orders);
 	}
 }

@@ -10,6 +10,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import christmas.exception.IllegalOrderException;
 import christmas.exception.IllegalOrderQuantityException;
+import christmas.util.OrderValidator;
 
 public class OrderValidatorTest {
 	private OrderValidator orderValidator = new OrderValidator();
