@@ -9,6 +9,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import christmas.exception.IllegalOrderException;
+import christmas.exception.IllegalOrderQuantityException;
 
 public class OrderValidatorTest {
 	private OrderValidator orderValidator = new OrderValidator();
@@ -41,4 +42,11 @@ public class OrderValidatorTest {
 			.hasMessageContaining(INVALID_ORDER_MESSAGE);
 	}
 
+	@DisplayName("총 주문 수량이 최대 주문수량보다 많으면 예외를 던진다.")
+	@Test
+	void whenTotalOrderQuantityIsBiggerThanMaxThrowException() {
+		String[] invalidOrders = {"해산물파스타-10", "레드와인-10", "초코케이크-1"};
+		assertThatThrownBy(() -> orderValidator.validateQuantity(invalidOrders))
+			.isExactlyInstanceOf(IllegalOrderQuantityException.class);
+	}
 }

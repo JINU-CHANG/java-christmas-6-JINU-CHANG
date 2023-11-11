@@ -3,10 +3,12 @@ package christmas.domain;
 import java.util.Arrays;
 
 import christmas.exception.IllegalOrderException;
+import christmas.exception.IllegalOrderQuantityException;
 
 public class OrderValidator {
 	private static final String MENU_QUANTITY_DELIMITER = "-";
 	private static final String FORMAT_PATTERN = "[가-힣]+-\\d";
+	private static final int MAX_TOTAL_QUANTITY = 20;
 
 	public void validatePattern(String[] input) {
 		if (isNotFormatPattern(input)) {
@@ -17,6 +19,10 @@ public class OrderValidator {
 	public void validateQuantity(String[] input) {
 		if (isInvalidQuantity(input)) {
 			throw new IllegalOrderException();
+		}
+
+		if (isInvalidTotalQuantity(input)) {
+			throw new IllegalOrderQuantityException(MAX_TOTAL_QUANTITY);
 		}
 	}
 
@@ -33,8 +39,14 @@ public class OrderValidator {
 
 	private boolean isInvalidQuantity(String[] orders) {
 		return Arrays.stream(orders)
-			.map(this::parseQuantity)
+			.mapToInt(this::parseQuantity)
 			.anyMatch(quantity -> quantity < 1);
+	}
+
+	private boolean isInvalidTotalQuantity(String[] orders) {
+		return Arrays.stream(orders)
+			.mapToInt(this::parseQuantity)
+			.sum() > MAX_TOTAL_QUANTITY;
 	}
 
 	private int parseQuantity(String order) {
