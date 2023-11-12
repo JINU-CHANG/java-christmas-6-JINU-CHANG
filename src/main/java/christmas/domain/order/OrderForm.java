@@ -19,6 +19,10 @@ public class OrderForm {
 		return orders;
 	}
 
+	public int getVisitDate() {
+		return visitDate.getVisitDate();
+	}
+
 	private Map<Menu, Integer> convertAndValidateInput(OrderInput input) {
 		Map<Menu, Integer> orders = OrderConvertor.convertToMap(input);
 		OrderValidator.validateOrderOnlyDrinks(orders);

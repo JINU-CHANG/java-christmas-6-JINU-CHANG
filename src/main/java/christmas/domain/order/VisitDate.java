@@ -14,6 +14,10 @@ public class VisitDate {
 		this.visitDate = convertToLocalDate(input);
 	}
 
+	public int getVisitDate() {
+		return this.visitDate.getDayOfMonth();
+	}
+
 	private LocalDate convertToLocalDate(int input) {
 		try {
 			return visitYearMonth.atDay(input);

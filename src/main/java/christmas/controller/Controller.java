@@ -22,6 +22,7 @@ public class Controller {
 		outputView.printGreeting();
 		VisitDate visitDate = tryUntilInputIsValid(() -> getVisitDate());
 		OrderForm orderForm = tryUntilInputIsValid(() -> getOrders(visitDate));
+		showEventBenefits(orderForm);
 	}
 
 	private VisitDate getVisitDate() {
@@ -31,6 +32,11 @@ public class Controller {
 	private OrderForm getOrders(VisitDate visitDate) {
 		OrderInput orderInput = new OrderInput(inputView.readOrders());
 		return new OrderForm(visitDate, orderInput);
+	}
+
+	private void showEventBenefits(OrderForm orderForm) {
+		outputView.printStartEventBenefits(orderForm);
+		outputView.printOrders(orderForm);
 	}
 
 	private <T> T tryUntilInputIsValid(Supplier<T> function) {
