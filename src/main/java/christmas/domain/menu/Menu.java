@@ -42,4 +42,8 @@ public enum Menu {
 	public String getMenuName() {
 		return this.name;
 	}
+
+	public int getPayment(int quantity) {
+		return (this.price * quantity);
+	}
 }

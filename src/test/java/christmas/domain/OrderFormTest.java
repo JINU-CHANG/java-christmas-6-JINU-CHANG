@@ -39,4 +39,18 @@ public class OrderFormTest {
 		assertThat(orderForm.getOrders())
 			.contains(entry(Menu.SEAFOOD_PASTA, 1), entry(Menu.RED_WINE, 1), entry(Menu.CHOCOLATE_CAKE, 1));
 	}
+
+	@DisplayName("할인 전 총 주문 금액을 계산한다.")
+	@Test
+	void calculateTotalPriceBeforeEventBenefits() {
+		int sum = 0;
+		sum += Menu.SEAFOOD_PASTA.getPayment(2);
+		sum += Menu.RED_WINE.getPayment(1);
+		sum += Menu.CHOCOLATE_CAKE.getPayment(1);
+
+		OrderForm orderForm = new OrderForm(new VisitDate(1), new OrderInput("해산물파스타-2,레드와인-1,초코케이크-1"));
+		int totalPrice = orderForm.getTotalPrice();
+
+		assertThat(totalPrice).isEqualTo(sum);
+	}
 }

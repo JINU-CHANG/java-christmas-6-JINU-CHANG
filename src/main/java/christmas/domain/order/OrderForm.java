@@ -23,6 +23,13 @@ public class OrderForm {
 		return visitDate.getVisitDate();
 	}
 
+	public int getTotalPrice() {
+		return orders.entrySet()
+			.stream()
+			.mapToInt(entry -> ((Menu)entry.getKey()).getPayment(entry.getValue()))
+			.sum();
+	}
+
 	private Map<Menu, Integer> convertAndValidateInput(OrderInput input) {
 		Map<Menu, Integer> orders = OrderConvertor.convertToMap(input);
 		OrderValidator.validateOrderOnlyDrinks(orders);
