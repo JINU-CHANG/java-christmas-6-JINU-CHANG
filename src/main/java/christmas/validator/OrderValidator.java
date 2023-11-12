@@ -6,8 +6,9 @@ import java.util.Map;
 import christmas.domain.menu.Menu;
 import christmas.domain.menu.Type;
 import christmas.exception.DrinksOnlyOrderException;
-import christmas.exception.IllegalOrderException;
-import christmas.exception.IllegalOrderQuantityException;
+import christmas.exception.OrderDuplicationException;
+import christmas.exception.OrderFormatPatternException;
+import christmas.exception.OrderQuantityException;
 import christmas.util.OrderParser;
 
 public class OrderValidator {
@@ -16,23 +17,23 @@ public class OrderValidator {
 
 	public static void validatePattern(String[] input) {
 		if (isNotFormatPattern(input)) {
-			throw new IllegalOrderException();
+			throw new OrderFormatPatternException();
 		}
 	}
 
 	public static void validateQuantity(String[] input) {
 		if (isInvalidQuantity(input)) {
-			throw new IllegalOrderException();
+			throw new OrderQuantityException();
 		}
 
 		if (isInvalidTotalQuantity(input)) {
-			throw new IllegalOrderQuantityException(MAX_TOTAL_QUANTITY);
+			throw new OrderQuantityException(MAX_TOTAL_QUANTITY);
 		}
 	}
 
 	public static void validateDuplication(String[] input) {
 		if (isDuplicated(input)) {
-			throw new IllegalOrderException();
+			throw new OrderDuplicationException();
 		}
 	}
 
