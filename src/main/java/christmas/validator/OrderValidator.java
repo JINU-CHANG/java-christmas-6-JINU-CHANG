@@ -1,7 +1,11 @@
 package christmas.validator;
 
 import java.util.Arrays;
+import java.util.Map;
 
+import christmas.domain.menu.Menu;
+import christmas.domain.menu.Type;
+import christmas.exception.DrinksOnlyOrderException;
 import christmas.exception.IllegalOrderException;
 import christmas.exception.IllegalOrderQuantityException;
 import christmas.util.OrderParser;
@@ -32,6 +36,12 @@ public class OrderValidator {
 		}
 	}
 
+	public static void validateOrderOnlyDrinks(Map<Menu, Integer> orders) {
+		if (containsOnlyDrinks(orders)) {
+			throw new DrinksOnlyOrderException();
+		}
+	}
+
 	private static boolean isNotFormatPattern(String[] orders) {
 		return Arrays.stream(orders)
 			.anyMatch(order -> !order.matches(FORMAT_PATTERN));
@@ -53,5 +63,10 @@ public class OrderValidator {
 		return Arrays.stream(orders)
 			.map(OrderParser::parseMenuName)
 			.distinct().count() != orders.length;
+	}
+
+	private static boolean containsOnlyDrinks(Map<Menu, Integer> orders) {
+		return orders.keySet().stream()
+			.allMatch(menu -> menu.getType().equals(Type.DRINK));
 	}
 }

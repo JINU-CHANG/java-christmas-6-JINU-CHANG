@@ -1,10 +1,10 @@
 package christmas.domain.order;
 
-import java.util.EnumMap;
 import java.util.Map;
 
 import christmas.domain.menu.Menu;
-import christmas.util.OrderParser;
+import christmas.util.OrderConvertor;
+import christmas.validator.OrderValidator;
 
 public class OrderForm {
 	private final VisitDate visitDate;
@@ -12,23 +12,16 @@ public class OrderForm {
 
 	public OrderForm(VisitDate visitDate, OrderInput input) {
 		this.visitDate = visitDate;
-		this.orders = convertToMap(input);
+		this.orders = convertAndValidateInput(input);
 	}
 
 	public Map<Menu, Integer> getOrders() {
 		return orders;
 	}
 
-	private Map<Menu, Integer> convertToMap(OrderInput input) {
-		Map<Menu, Integer> orders = new EnumMap<>(Menu.class);
-
-		for (String order : input.getOrders()) {
-			String menuName = OrderParser.parseMenuName(order);
-			int quantity = OrderParser.parseQuantity(order);
-
-			orders.put(Menu.from(menuName), quantity);
-		}
-
+	private Map<Menu, Integer> convertAndValidateInput(OrderInput input) {
+		Map<Menu, Integer> orders = OrderConvertor.convertToMap(input);
+		OrderValidator.validateOrderOnlyDrinks(orders);
 		return orders;
 	}
 }

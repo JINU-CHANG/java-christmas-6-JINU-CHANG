@@ -1,6 +1,7 @@
 package christmas.domain.menu;
 
 import java.util.Arrays;
+import java.util.Map;
 
 import christmas.exception.MenuNotFoundException;
 
@@ -33,4 +34,10 @@ public enum Menu {
 			.findFirst()
 			.orElseThrow(MenuNotFoundException::new);
 	}
+
+	public Type getType() {
+		return this.type;
+	}
+
+
 }

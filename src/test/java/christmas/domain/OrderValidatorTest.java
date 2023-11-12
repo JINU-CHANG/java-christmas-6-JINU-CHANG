@@ -1,13 +1,19 @@
 package christmas.domain;
 
+import static christmas.exception.DrinksOnlyOrderException.EXCEPTION_MESSAGE;
 import static christmas.exception.IllegalOrderException.INVALID_ORDER_MESSAGE;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+import java.util.EnumMap;
+import java.util.Map;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import christmas.domain.menu.Menu;
+import christmas.exception.DrinksOnlyOrderException;
 import christmas.exception.IllegalOrderException;
 import christmas.exception.IllegalOrderQuantityException;
 import christmas.validator.OrderValidator;
@@ -49,5 +55,17 @@ public class OrderValidatorTest {
 		String[] invalidOrders = {"해산물파스타-10", "레드와인-10", "초코케이크-1"};
 		assertThatThrownBy(() -> orderValidator.validateQuantity(invalidOrders))
 			.isExactlyInstanceOf(IllegalOrderQuantityException.class);
+	}
+
+	@DisplayName("음료만 주문시 예외를 던진다.")
+	@Test
+	void whenOrderOnlyDrinksThrowException() {
+		Map<Menu, Integer> drinksOrder = new EnumMap<>(Menu.class);
+		drinksOrder.put(Menu.RED_WINE, 1);
+		drinksOrder.put(Menu.CHAMPAGNE, 2);
+
+		assertThatThrownBy(() -> orderValidator.validateOrderOnlyDrinks(drinksOrder))
+			.isExactlyInstanceOf(DrinksOnlyOrderException.class)
+			.hasMessageContaining(EXCEPTION_MESSAGE);
 	}
 }
