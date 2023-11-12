@@ -23,7 +23,7 @@ public class OrderForm {
 		return visitDate.getVisitDate();
 	}
 
-	public int getTotalPrice() {
+	public int getTotalPayment() {
 		return orders.entrySet()
 			.stream()
 			.mapToInt(entry -> ((Menu)entry.getKey()).getPayment(entry.getValue()))

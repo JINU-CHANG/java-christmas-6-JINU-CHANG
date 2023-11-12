@@ -49,7 +49,7 @@ public class OrderFormTest {
 		sum += Menu.CHOCOLATE_CAKE.getPayment(1);
 
 		OrderForm orderForm = new OrderForm(new VisitDate(1), new OrderInput("해산물파스타-2,레드와인-1,초코케이크-1"));
-		int totalPrice = orderForm.getTotalPrice();
+		int totalPrice = orderForm.getTotalPayment();
 
 		assertThat(totalPrice).isEqualTo(sum);
 	}

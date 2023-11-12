@@ -51,4 +51,13 @@ public class OutputViewTest {
 
 		assertThat(output.toString().split("\n")).contains(expectedOrdersFormat);
 	}
+
+	@DisplayName("할인 전 주문 금액 출력한다.")
+	@Test
+	void testPrintTotalPayment() {
+		OutputView outputView = new OutputView();
+		outputView.printTotalPayment(15000);
+
+		assertThat(output.toString().trim()).isEqualTo((PAYMENT_BEFORE_EVENT_TITLE+"\n15,000\n").trim());
+	}
 }

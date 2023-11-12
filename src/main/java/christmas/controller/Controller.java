@@ -37,6 +37,7 @@ public class Controller {
 	private void showEventBenefits(OrderForm orderForm) {
 		outputView.printStartEventBenefits(orderForm);
 		outputView.printOrders(orderForm);
+		outputView.printTotalPayment(orderForm.getTotalPayment());
 	}
 
 	private <T> T tryUntilInputIsValid(Supplier<T> function) {
