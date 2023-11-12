@@ -1,6 +1,5 @@
 package christmas.domain;
 
-import static christmas.exception.CommonIllegalArgumentException.*;
 import static christmas.exception.IllegalDateException.INVALID_DATE_MESSAGE;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.assertThatCode;
@@ -10,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import christmas.domain.order.VisitDate;
 import christmas.exception.IllegalDateException;
 
 public class VisitDateTest {

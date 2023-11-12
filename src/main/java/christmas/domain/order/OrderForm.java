@@ -1,8 +1,9 @@
-package christmas.domain;
+package christmas.domain.order;
 
 import java.util.EnumMap;
 import java.util.Map;
 
+import christmas.domain.menu.Menu;
 import christmas.util.OrderParser;
 
 public class OrderForm {

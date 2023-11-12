@@ -1,7 +1,7 @@
-package christmas.domain;
+package christmas.domain.order;
 
 import christmas.util.OrderParser;
-import christmas.util.OrderValidator;
+import christmas.validator.OrderValidator;
 
 public class OrderInput {
 	private final String orders;

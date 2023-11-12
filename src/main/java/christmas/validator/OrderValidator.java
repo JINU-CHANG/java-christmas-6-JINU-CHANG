@@ -1,9 +1,10 @@
-package christmas.util;
+package christmas.validator;
 
 import java.util.Arrays;
 
 import christmas.exception.IllegalOrderException;
 import christmas.exception.IllegalOrderQuantityException;
+import christmas.util.OrderParser;
 
 public class OrderValidator {
 	private static final String FORMAT_PATTERN = "[가-힣]+-\\d";

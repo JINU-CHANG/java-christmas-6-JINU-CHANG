@@ -8,8 +8,11 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import christmas.domain.menu.Menu;
+import christmas.domain.order.OrderForm;
+import christmas.domain.order.OrderInput;
+import christmas.domain.order.VisitDate;
 import christmas.exception.MenuNotFoundException;
-import christmas.util.OrderValidator;
 
 public class OrderFormTest {
 	@DisplayName("존재하지 않는 메뉴를 입력하는 경우 예외를 던진다.")
