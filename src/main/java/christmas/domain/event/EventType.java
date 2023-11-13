@@ -9,12 +9,13 @@ public enum EventType {
 	CHRISTMAS_DDAY("크리스마스 디데이 할인",
 		LocalDate.of(2023, 12, 1),
 		LocalDate.of(2023, 12, 25)),
-
 	WEEKEND("주말 할인",
 		LocalDate.of(2023, 12, 1),
 		LocalDate.of(2023, 12, 31)),
-
 	WEEKDAY("평일 할인",
+		LocalDate.of(2023, 12, 1),
+		LocalDate.of(2023, 12, 31)),
+	SPECIAL("특별 할인",
 		LocalDate.of(2023, 12, 1),
 		LocalDate.of(2023, 12, 31));
 
