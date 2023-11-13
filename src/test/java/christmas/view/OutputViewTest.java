@@ -34,8 +34,7 @@ public class OutputViewTest {
 	void testPrintStartEventBenefits() {
 		int visitDate = 1;
 		OrderSheet orderSheet = new OrderSheet(new VisitDate(visitDate), new OrderInput("해산물파스타-2,레드와인-1,초코케이크-1"));
-		OutputView outputView = new OutputView();
-		outputView.printStartEventBenefits(orderSheet);
+		OutputView.printStartEventBenefits(orderSheet);
 
 		assertThat(output.toString().trim()).isEqualTo(String.format(EVENT_BENEFITS_START_MESSAGE, visitDate).trim());
 	}
@@ -44,8 +43,7 @@ public class OutputViewTest {
 	@Test
 	void testPrintOrders() {
 		OrderSheet orderSheet = new OrderSheet(new VisitDate(1), new OrderInput("해산물파스타-2,레드와인-1,초코케이크-1"));
-		OutputView outputView = new OutputView();
-		outputView.printOrders(orderSheet);
+		OutputView.printOrders(orderSheet);
 
 		String[] expectedOrdersFormat = {"해산물파스타 2개", "레드와인 1개", "초코케이크 1개"};
 
@@ -55,8 +53,7 @@ public class OutputViewTest {
 	@DisplayName("할인 전 주문 금액 출력한다.")
 	@Test
 	void testPrintTotalPayment() {
-		OutputView outputView = new OutputView();
-		outputView.printTotalPayment(15000);
+		OutputView.printTotalPayment(15000);
 
 		assertThat(output.toString().trim()).isEqualTo((PAYMENT_BEFORE_EVENT_TITLE+"\n15,000\n").trim());
 	}

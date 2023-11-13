@@ -12,15 +12,15 @@ public class OutputView {
 	public static final String PAYMENT_BEFORE_EVENT_TITLE = "<할인 전 총주문 금액>";
 	private static final DecimalFormat decimalFormat = new DecimalFormat("###,###");
 
-	public void printGreeting() {
+	public static void printGreeting() {
 		System.out.println(GREETING_MESSAGE);
 	}
 
-	public void printStartEventBenefits(OrderSheet orderSheet) {
+	public static void printStartEventBenefits(OrderSheet orderSheet) {
 		System.out.println(String.format(EVENT_BENEFITS_START_MESSAGE, orderSheet.getVisitDate().getDayOfMonth()));
 	}
 
-	public void printOrders(OrderSheet orderSheet) {
+	public static void printOrders(OrderSheet orderSheet) {
 		System.out.println(ORDERS_PRINT_TITLE);
 
 		orderSheet.getOrders().forEach((menu, quantity) -> {
@@ -29,7 +29,7 @@ public class OutputView {
 		System.out.println();
 	}
 
-	public void printTotalPayment(int totalPayment) {
+	public static void printTotalPayment(int totalPayment) {
 		System.out.printf("%s%n%s%n", PAYMENT_BEFORE_EVENT_TITLE, decimalFormat.format(totalPayment));
 	}
 }

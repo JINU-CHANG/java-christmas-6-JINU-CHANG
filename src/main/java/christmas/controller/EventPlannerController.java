@@ -13,34 +13,30 @@ import christmas.view.InputView;
 import christmas.view.OutputView;
 
 public class EventPlannerController {
-	private final OutputView outputView;
-	private final InputView inputView;
 	private final EventPlanner eventPlanner;
 
-	public EventPlannerController(OutputView outputView, InputView inputView, EventPlanner eventPlanner) {
-		this.outputView = outputView;
-		this.inputView = inputView;
+	public EventPlannerController(EventPlanner eventPlanner) {
 		this.eventPlanner = eventPlanner;
 	}
 
 	public void run() {
-		outputView.printGreeting();
+		OutputView.printGreeting();
 
 		VisitDate visitDate = tryUntilInputIsValid(() -> getVisitDate());
 		OrderSheet orderSheet = tryUntilInputIsValid(() -> getOrders(visitDate));
 
-		outputView.printStartEventBenefits(orderSheet);
+		OutputView.printStartEventBenefits(orderSheet);
 
 		showOrders(orderSheet);
 		showEventBenefits(orderSheet);
 	}
 
 	private VisitDate getVisitDate() {
-		return new VisitDate(inputView.readVisitDate());
+		return new VisitDate(InputView.readVisitDate());
 	}
 
 	private OrderSheet getOrders(VisitDate visitDate) {
-		OrderInput orderInput = new OrderInput(inputView.readOrders());
+		OrderInput orderInput = new OrderInput(InputView.readOrders());
 		return new OrderSheet(visitDate, orderInput);
 	}
 
@@ -49,8 +45,8 @@ public class EventPlannerController {
 	}
 
 	private void showOrders(OrderSheet orderSheet) {
-		outputView.printOrders(orderSheet);
-		outputView.printTotalPayment(orderSheet.getTotalPayment());
+		OutputView.printOrders(orderSheet);
+		OutputView.printTotalPayment(orderSheet.getTotalPayment());
 	}
 
 	private <T> T tryUntilInputIsValid(Supplier<T> function) {
