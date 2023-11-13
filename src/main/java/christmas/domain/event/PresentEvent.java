@@ -12,11 +12,6 @@ public class PresentEvent extends Event{
 	private static final int requiredPayment = 120_000;
 
 	@Override
-	public String getEventName() {
-		return eventType.getName();
-	}
-
-	@Override
 	public boolean isMatch(OrderForm orderForm) {
 		return eventType.isDayOfWeekInDuration(orderForm.getVisitDate()) && isMoreThanStandardPayment(orderForm.getTotalPayment());
 	}

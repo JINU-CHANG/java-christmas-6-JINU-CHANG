@@ -10,11 +10,6 @@ public class ChristmasDDayEvent extends Event{
 	private static final int increment = 100;
 
 	@Override
-	public String getEventName() {
-		return null;
-	}
-
-	@Override
 	public boolean isMatch(OrderForm orderForm) {
 		return eventType.isDayOfWeekInDuration(orderForm.getVisitDate());
 	}

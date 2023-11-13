@@ -8,7 +8,11 @@ public enum EventType {
 		LocalDate.of(2023, 12, 31)),
 	CHRISTMAS_DDAY("크리스마스 디데이 할인",
 		LocalDate.of(2023, 12, 1),
-		LocalDate.of(2023, 12, 25));
+		LocalDate.of(2023, 12, 25)),
+
+	WEEKEND("주말 할인",
+		LocalDate.of(2023, 12, 1),
+		LocalDate.of(2023, 12, 31));
 
 	private String name;
 	private LocalDate startDate;
