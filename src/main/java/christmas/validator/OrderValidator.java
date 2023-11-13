@@ -37,37 +37,38 @@ public class OrderValidator {
 		}
 	}
 
-	public static void validateOrderOnlyDrinks(Map<Menu, Integer> orders) {
-		if (containsOnlyDrinks(orders)) {
+	public static void validateOrderOnlyDrinks(String[] input) {
+		if (containsOnlyDrinks(input)) {
 			throw new DrinksOnlyOrderException();
 		}
 	}
 
-	private static boolean isNotFormatPattern(String[] orders) {
-		return Arrays.stream(orders)
+	private static boolean isNotFormatPattern(String[] input) {
+		return Arrays.stream(input)
 			.anyMatch(order -> !order.matches(FORMAT_PATTERN));
 	}
 
-	private static boolean isInvalidQuantity(String[] orders) {
-		return Arrays.stream(orders)
+	private static boolean isInvalidQuantity(String[] input) {
+		return Arrays.stream(input)
 			.mapToInt(OrderParser::parseQuantity)
 			.anyMatch(quantity -> quantity < 1);
 	}
 
-	private static boolean isInvalidTotalQuantity(String[] orders) {
-		return Arrays.stream(orders)
+	private static boolean isInvalidTotalQuantity(String[] input) {
+		return Arrays.stream(input)
 			.mapToInt(OrderParser::parseQuantity)
 			.sum() > MAX_TOTAL_QUANTITY;
 	}
 
-	private static boolean isDuplicated(String[] orders) {
-		return Arrays.stream(orders)
+	private static boolean isDuplicated(String[] input) {
+		return Arrays.stream(input)
 			.map(OrderParser::parseMenuName)
-			.distinct().count() != orders.length;
+			.distinct().count() != input.length;
 	}
 
-	private static boolean containsOnlyDrinks(Map<Menu, Integer> orders) {
-		return orders.keySet().stream()
-			.allMatch(menu -> menu.getType().equals(MenuType.DRINK));
+	private static boolean containsOnlyDrinks(String[] input) {
+		return Arrays.stream(input)
+			.map(order -> OrderParser.parseMenuName(order))
+			.allMatch(menu -> Menu.isMatchTo(menu, MenuType.DRINK));
 	}
 }

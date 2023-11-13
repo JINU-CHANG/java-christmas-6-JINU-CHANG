@@ -3,7 +3,7 @@ package christmas.controller;
 import java.util.Set;
 import java.util.function.Supplier;
 
-import christmas.domain.event.EventPlanner;
+import christmas.service.EventPlannerService;
 import christmas.domain.order.OrderSheet;
 import christmas.dto.order.OrderInput;
 import christmas.dto.order.VisitDate;
@@ -13,17 +13,19 @@ import christmas.view.InputView;
 import christmas.view.OutputView;
 
 public class EventPlannerController {
-	private final EventPlanner eventPlanner;
+	private final EventPlannerService eventPlannerService;
 
-	public EventPlannerController(EventPlanner eventPlanner) {
-		this.eventPlanner = eventPlanner;
+	public EventPlannerController(EventPlannerService eventPlannerService) {
+		this.eventPlannerService = eventPlannerService;
 	}
 
 	public void run() {
 		OutputView.printGreeting();
 
-		VisitDate visitDate = tryUntilInputIsValid(() -> getVisitDate());
-		OrderSheet orderSheet = tryUntilInputIsValid(() -> getOrders(visitDate));
+		VisitDate visitDate = tryUntilInputIsValid(this::getVisitDate);
+		OrderInput orderInput = tryUntilInputIsValid(this::getOrderInput);
+
+		OrderSheet orderSheet = eventPlannerService.createOrderSheet(visitDate, orderInput);
 
 		OutputView.printStartEventBenefits(orderSheet.getVisitDate());
 
@@ -35,9 +37,8 @@ public class EventPlannerController {
 		return new VisitDate(InputView.readVisitDate());
 	}
 
-	private OrderSheet getOrders(VisitDate visitDate) {
-		OrderInput orderInput = new OrderInput(InputView.readOrders());
-		return new OrderSheet(visitDate, orderInput);
+	private OrderInput getOrderInput() {
+		return new OrderInput(InputView.readOrders());
 	}
 
 	private void showOrders(OrderSheet orderSheet) {
@@ -46,11 +47,11 @@ public class EventPlannerController {
 	}
 
 	private void showEventBenefits(OrderSheet orderSheet) {
-		OutputView.printPresentEventResult(eventPlanner.getPresentEventResult(orderSheet));
+		OutputView.printPresentEventResult(eventPlannerService.getPresentEventResult(orderSheet));
 
-		Set<EventResult> results = eventPlanner.calculate(orderSheet);
+		Set<EventResult> results = eventPlannerService.getEventResult(orderSheet);
 		OutputView.printEventBenefits(results);
-		OutputView.printTotalBenefits(eventPlanner.calculateTotalBenefits(results));
+		OutputView.printTotalBenefits(eventPlannerService.getTotalBenefits(results));
 	}
 
 	private <T> T tryUntilInputIsValid(Supplier<T> function) {

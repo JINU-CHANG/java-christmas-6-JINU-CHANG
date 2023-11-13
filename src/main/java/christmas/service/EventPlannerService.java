@@ -1,20 +1,28 @@
-package christmas.domain.event;
+package christmas.service;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import christmas.domain.event.Event;
+import christmas.domain.event.PresentEvent;
 import christmas.domain.order.OrderSheet;
+import christmas.dto.order.OrderInput;
+import christmas.dto.order.VisitDate;
 import christmas.dto.result.EventResult;
 import christmas.dto.result.PresentEventResult;
 import christmas.exception.EventNotFoundException;
 
-public class EventPlanner {
+public class EventPlannerService {
 	private final Set<Event> events;
 	private static final int eventCondition = 10_000;
 
-	public EventPlanner(Set<Event> events) {
+	public EventPlannerService(Set<Event> events) {
 		this.events = new HashSet<>(events);
+	}
+
+	public OrderSheet createOrderSheet(VisitDate visitDate, OrderInput orderInput) {
+		return new OrderSheet(visitDate, orderInput);
 	}
 
 	public PresentEventResult getPresentEventResult(OrderSheet orderSheet) {
@@ -26,14 +34,22 @@ public class EventPlanner {
 		return (PresentEventResult)presentEvent.getEventBenefits(orderSheet);
 	}
 
-	public Set<EventResult> calculate(OrderSheet orderSheet) {
+	public Set<EventResult> getEventResult(OrderSheet orderSheet) {
 		if (isSatisfiedBy(orderSheet)) {
-			return events.stream()
-				.map(event-> event.getEventBenefits(orderSheet))
-				.filter(eventResult -> eventResult!=null)
-				.collect(Collectors.toSet());
+			return calculate(orderSheet);
 		}
 		return null;
+	}
+
+	public int getTotalBenefits(Set<EventResult> results) {
+		return calculateTotalBenefits(results);
+	}
+
+	private Set<EventResult> calculate(OrderSheet orderSheet) {
+		return events.stream()
+			.map(event-> event.getEventBenefits(orderSheet))
+			.filter(eventResult -> eventResult!=null)
+			.collect(Collectors.toSet());
 	}
 
 	public int calculateTotalBenefits(Set<EventResult> results) {

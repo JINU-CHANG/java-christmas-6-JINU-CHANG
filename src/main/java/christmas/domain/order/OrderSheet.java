@@ -7,7 +7,6 @@ import christmas.domain.menu.Menu;
 import christmas.dto.order.OrderInput;
 import christmas.dto.order.VisitDate;
 import christmas.util.OrderConvertor;
-import christmas.validator.OrderValidator;
 
 public class OrderSheet {
 	private final VisitDate visitDate;
@@ -34,8 +33,6 @@ public class OrderSheet {
 	}
 
 	private Map<Menu, Integer> convertBy(OrderInput input) {
-		Map<Menu, Integer> orders = OrderConvertor.convertToMap(input);
-		OrderValidator.validateOrderOnlyDrinks(orders);
-		return orders;
+		return OrderConvertor.convertToMap(input);
 	}
 }

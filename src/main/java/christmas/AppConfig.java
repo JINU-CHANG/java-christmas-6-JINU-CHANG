@@ -3,10 +3,9 @@ package christmas;
 import java.time.LocalDate;
 import java.util.Set;
 
-import christmas.controller.EventPlannerController;
 import christmas.domain.event.ChristmasDDayEvent;
 import christmas.domain.event.Event;
-import christmas.domain.event.EventPlanner;
+import christmas.service.EventPlannerService;
 import christmas.domain.event.EventType;
 import christmas.domain.event.PresentEvent;
 import christmas.domain.event.SpecialEvent;
@@ -14,8 +13,8 @@ import christmas.domain.event.WeekdayEvent;
 import christmas.domain.event.WeekendEvent;
 
 public class AppConfig {
-	public EventPlanner createEventPlanner() {
-		return new EventPlanner(createEvents());
+	public EventPlannerService createEventPlanner() {
+		return new EventPlannerService(createEvents());
 	}
 	public Set<Event> createEvents() {
 		ChristmasDDayEvent christmasDDayEvent = new ChristmasDDayEvent(EventType.CHRISTMAS_DDAY,

@@ -20,5 +20,6 @@ public class OrderInput {
 		OrderValidator.validatePattern(orders);
 		OrderValidator.validateQuantity(orders);
 		OrderValidator.validateDuplication(orders);
+		OrderValidator.validateOrderOnlyDrinks(orders);
 	}
 }

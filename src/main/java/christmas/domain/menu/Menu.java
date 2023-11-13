@@ -49,4 +49,9 @@ public enum Menu {
 	public int getPayment(int quantity) {
 		return (this.price * quantity);
 	}
+
+	public static boolean isMatchTo(String input, MenuType type) {
+		return Arrays.stream(Menu.values())
+			.anyMatch(menu -> menu.name.equals(input) && menu.type.equals(type));
+	}
 }

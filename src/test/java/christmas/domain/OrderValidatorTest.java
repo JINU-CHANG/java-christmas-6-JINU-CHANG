@@ -2,15 +2,11 @@ package christmas.domain;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import java.util.EnumMap;
-import java.util.Map;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import christmas.domain.menu.Menu;
 import christmas.exception.DrinksOnlyOrderException;
 import christmas.exception.OrderDuplicationException;
 import christmas.exception.OrderFormatPatternException;
@@ -59,9 +55,7 @@ public class OrderValidatorTest {
 	@DisplayName("음료만 주문시 예외를 던진다.")
 	@Test
 	void whenOrderOnlyDrinksThrowException() {
-		Map<Menu, Integer> drinksOrder = new EnumMap<>(Menu.class);
-		drinksOrder.put(Menu.RED_WINE, 1);
-		drinksOrder.put(Menu.CHAMPAGNE, 2);
+		String[] drinksOrder = {"샴페인-1", "레드와인-2"};
 
 		assertThatThrownBy(() -> orderValidator.validateOrderOnlyDrinks(drinksOrder))
 			.isExactlyInstanceOf(DrinksOnlyOrderException.class)
