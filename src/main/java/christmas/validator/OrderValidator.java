@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import christmas.domain.menu.Menu;
-import christmas.domain.menu.Type;
+import christmas.domain.menu.MenuType;
 import christmas.exception.DrinksOnlyOrderException;
 import christmas.exception.OrderDuplicationException;
 import christmas.exception.OrderFormatPatternException;
@@ -68,6 +68,6 @@ public class OrderValidator {
 
 	private static boolean containsOnlyDrinks(Map<Menu, Integer> orders) {
 		return orders.keySet().stream()
-			.allMatch(menu -> menu.getType().equals(Type.DRINK));
+			.allMatch(menu -> menu.getType().equals(MenuType.DRINK));
 	}
 }

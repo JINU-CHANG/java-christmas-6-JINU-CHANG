@@ -1,5 +1,6 @@
 package christmas.domain.order;
 
+import java.time.LocalDate;
 import java.util.Map;
 
 import christmas.domain.menu.Menu;
@@ -19,7 +20,7 @@ public class OrderForm {
 		return orders;
 	}
 
-	public int getVisitDate() {
+	public LocalDate getVisitDate() {
 		return visitDate.getVisitDate();
 	}
 

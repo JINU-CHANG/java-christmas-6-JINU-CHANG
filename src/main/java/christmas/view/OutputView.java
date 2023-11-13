@@ -17,7 +17,7 @@ public class OutputView {
 	}
 
 	public void printStartEventBenefits(OrderForm orderForm) {
-		System.out.println(String.format(EVENT_BENEFITS_START_MESSAGE, orderForm.getVisitDate()));
+		System.out.println(String.format(EVENT_BENEFITS_START_MESSAGE, orderForm.getVisitDate().getDayOfMonth()));
 	}
 
 	public void printOrders(OrderForm orderForm) {
