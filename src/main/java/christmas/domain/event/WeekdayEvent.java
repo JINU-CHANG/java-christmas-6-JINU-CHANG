@@ -17,18 +17,22 @@ public class WeekdayEvent extends Event{
 	}
 
 	@Override
-	public boolean isSatisfiedBy(OrderSheet orderSheet) {
+	protected boolean isSatisfiedBy(OrderSheet orderSheet) {
 		return isDayOfWeekInDuration(orderSheet.getVisitDate()) && isWeekDay(orderSheet.getVisitDate());
 	}
 
 	@Override
 	public EventResult getEventBenefits(OrderSheet orderSheet) {
-		int benefitSum = orderSheet.getOrders().entrySet().stream()
-			.filter(order -> order.getKey().getType().equals(applicableMenuType))
-			.mapToInt(order -> order.getValue() * discount)
-			.sum();
+		if (isSatisfiedBy(orderSheet)) {
+			int benefitSum = orderSheet.getOrders().entrySet().stream()
+				.filter(order -> order.getKey().getType().equals(applicableMenuType))
+				.mapToInt(order -> order.getValue() * discount)
+				.sum();
 
-		return new WeekendEventResult(eventType.getName(), benefitSum);
+			return new WeekendEventResult(eventType.getName(), benefitSum);
+		}
+
+		return null;
 	}
 
 	private boolean isWeekDay(LocalDate localDate) {

@@ -18,22 +18,22 @@ import christmas.domain.result.EventResult;
 public class SpecialEventTest {
 	private final Event specialEvent = createEvent();
 
-	@DisplayName("방문 요일이 특별 요일이면 true값을 반환한다.")
+	@DisplayName("방문 요일이 특별 요일이면 혜택금액을 반환한다.")
 	@Test
 	void testVisitDateIsSpecialDay() {
 		int weekendVisitDate = 3; // 특별 요일
 		OrderSheet orderSheet = new OrderSheet(new VisitDate(weekendVisitDate), new OrderInput("해산물파스타-2,레드와인-1,초코케이크-1"));
 
-		assertThat(specialEvent.isSatisfiedBy(orderSheet)).isEqualTo(true);
+		assertThat(specialEvent.getEventBenefits(orderSheet)).isNotEqualTo(null);
 	}
 
-	@DisplayName("방문 요일이 특별 요일이 아니면 false값을 반환한다.")
+	@DisplayName("방문 요일이 특별 요일이 아니면 null을 반환한다.")
 	@Test
 	void testVisitDateIsNotSpecialDay() {
 		int notWeekendVisitDate = 2;
 		OrderSheet orderSheet = new OrderSheet(new VisitDate(notWeekendVisitDate), new OrderInput("해산물파스타-2,레드와인-1,초코케이크-1"));
 
-		assertThat(specialEvent.isSatisfiedBy(orderSheet)).isEqualTo(false);
+		assertThat(specialEvent.getEventBenefits(orderSheet)).isEqualTo(null);
 	}
 
 	@DisplayName("특별 이벤트에 해당될 시 혜택 금액을 반환한다.")

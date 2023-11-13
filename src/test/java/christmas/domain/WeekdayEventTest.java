@@ -18,22 +18,22 @@ import christmas.domain.result.EventResult;
 public class WeekdayEventTest {
 	private Event weekdayEvent = createEvent();
 
-	@DisplayName("방문 요일이 평일이면 true값을 반환한다.")
+	@DisplayName("방문 요일이 평일이면 혜택금액을 반환한다.")
 	@Test
 	void testVisitDateIsWeekday() {
 		int weekendVisitDate = 3; // 평일
 		OrderSheet orderSheet = new OrderSheet(new VisitDate(weekendVisitDate), new OrderInput("해산물파스타-2,레드와인-1,초코케이크-1"));
 
-		assertThat(weekdayEvent.isSatisfiedBy(orderSheet)).isEqualTo(true);
+		assertThat(weekdayEvent.getEventBenefits(orderSheet)).isNotEqualTo(null);
 	}
 
-	@DisplayName("방문 요일이 평일이 아니면 false값을 반환한다.")
+	@DisplayName("방문 요일이 평일이 아니면 null을 반환한다.")
 	@Test
 	void testVisitDateIsNotWeekend() {
 		int notWeekendVisitDate = 2; // 주말
 		OrderSheet orderSheet = new OrderSheet(new VisitDate(notWeekendVisitDate), new OrderInput("해산물파스타-2,레드와인-1,초코케이크-1"));
 
-		assertThat(weekdayEvent.isSatisfiedBy(orderSheet)).isEqualTo(false);
+		assertThat(weekdayEvent.getEventBenefits(orderSheet)).isEqualTo(null);
 	}
 
 	@DisplayName("평일 이벤트에 해당될 시 혜택 금액을 반환한다.")

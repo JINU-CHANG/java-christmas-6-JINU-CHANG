@@ -15,13 +15,16 @@ public class SpecialEvent extends Event{
 	}
 
 	@Override
-	public boolean isSatisfiedBy(OrderSheet orderSheet) {
+	protected boolean isSatisfiedBy(OrderSheet orderSheet) {
 		return isDayOfWeekInDuration(orderSheet.getVisitDate()) && isSpecialDay(orderSheet.getVisitDate());
 	}
 
 	@Override
 	public EventResult getEventBenefits(OrderSheet orderSheet) {
-		return new SpecialEventResult(eventType.getName(), discount);
+		if (isSatisfiedBy(orderSheet)) {
+			return new SpecialEventResult(eventType.getName(), discount);
+		}
+		return null;
 	}
 
 	private boolean isSpecialDay(LocalDate localDate) {

@@ -12,8 +12,8 @@ public class PresentEventResult extends EventResult{
 		this.presentQuantity = presentQuantity;
 	}
 
-	public Menu getPresent() {
-		return present;
+	public String getPresent() {
+		return present.getMenuName();
 	}
 
 	public int getPresentQuantity() {

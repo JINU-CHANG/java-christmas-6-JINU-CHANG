@@ -21,7 +21,10 @@ public class ChristmasDDayEvent extends Event{
 
 	@Override
 	public EventResult getEventBenefits(OrderSheet orderSheet) {
-		return new ChristmasDDayEventResult(eventType.getName(), calculateDiscount(orderSheet));
+		if (isSatisfiedBy(orderSheet)) {
+			return new ChristmasDDayEventResult(eventType.getName(), calculateDiscount(orderSheet));
+		}
+		return null;
 	}
 
 	private int calculateDiscount(OrderSheet orderSheet) {

@@ -8,6 +8,7 @@ import christmas.domain.order.OrderSheet;
 import christmas.domain.order.OrderInput;
 import christmas.domain.order.VisitDate;
 import christmas.domain.result.EventResult;
+import christmas.domain.result.PresentEventResult;
 import christmas.exception.CommonIllegalArgumentException;
 import christmas.view.InputView;
 import christmas.view.OutputView;
@@ -41,6 +42,8 @@ public class EventPlannerController {
 	}
 
 	private void showEventBenefits(OrderSheet orderSheet) {
+		OutputView.printPresentEventResult(eventPlanner.getPresentEventResult(orderSheet));
+
 		Set<EventResult> results = eventPlanner.calculate(orderSheet);
 	}
 

@@ -11,9 +11,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import christmas.domain.menu.Menu;
 import christmas.domain.order.OrderSheet;
 import christmas.domain.order.OrderInput;
 import christmas.domain.order.VisitDate;
+import christmas.domain.result.PresentEventResult;
 
 public class OutputViewTest {
 	private final ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -55,6 +57,24 @@ public class OutputViewTest {
 	void testPrintTotalPayment() {
 		OutputView.printTotalPayment(15000);
 
-		assertThat(output.toString().trim()).isEqualTo((PAYMENT_BEFORE_EVENT_TITLE+"\n15,000\n").trim());
+		assertThat(output.toString().trim()).isEqualTo(String.format(PAYMENT_BEFORE_EVENT_FORMAT,"15,000").trim());
+	}
+
+	@DisplayName("증정 이벤트 결과를 출력한다.")
+	@Test
+	void testPrintPresentEventResult() {
+		PresentEventResult presentEventResult = new PresentEventResult("증정 이벤트", 25000, Menu.CHAMPAGNE, 1);
+		OutputView.printPresentEventResult(presentEventResult);
+
+		assertThat(output.toString().trim()).isEqualTo((PRESENT_EVENT_FORMAT+"\n샴페인 1개\n").trim());
+	}
+
+	@DisplayName("증정 이벤트 결과가 존재하지 않으면 없음을 출력한다.")
+	@Test
+	void testPrintPresentEventResultNotExist() {
+		PresentEventResult presentEventResult = null;
+		OutputView.printPresentEventResult(presentEventResult);
+
+		assertThat(output.toString().trim()).isEqualTo((PRESENT_EVENT_FORMAT+"\n"+NOT_EXIST+"\n").trim());
 	}
 }

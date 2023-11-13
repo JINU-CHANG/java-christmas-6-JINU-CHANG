@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import christmas.domain.order.OrderSheet;
 import christmas.domain.result.EventResult;
+import christmas.domain.result.PresentEventResult;
+import christmas.exception.EventNotFoundException;
 
 public class EventPlanner {
 	private final Set<Event> events;
@@ -15,11 +17,20 @@ public class EventPlanner {
 		this.events = new HashSet<>(events);
 	}
 
+	public PresentEventResult getPresentEventResult(OrderSheet orderSheet) {
+		PresentEvent presentEvent = events.stream()
+			.filter(PresentEvent.class::isInstance)
+			.map(PresentEvent.class::cast)
+			.findFirst().orElseThrow(EventNotFoundException::new);
+
+		return (PresentEventResult)presentEvent.getEventBenefits(orderSheet);
+	}
+
 	public Set<EventResult> calculate(OrderSheet orderSheet) {
 		if (isSatisfiedBy(orderSheet)) {
 			return events.stream()
-				.filter(event -> event.isSatisfiedBy(orderSheet))
 				.map(event-> event.getEventBenefits(orderSheet))
+				.filter(eventResult -> eventResult==null)
 				.collect(Collectors.toSet());
 		}
 		return null;

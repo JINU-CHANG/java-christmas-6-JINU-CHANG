@@ -17,13 +17,16 @@ public class PresentEvent extends Event{
 	}
 
 	@Override
-	public boolean isSatisfiedBy(OrderSheet orderSheet) {
+	protected boolean isSatisfiedBy(OrderSheet orderSheet) {
 		return isDayOfWeekInDuration(orderSheet.getVisitDate()) && isMoreThanStandardPayment(orderSheet.getTotalPayment());
 	}
 
 	@Override
 	public EventResult getEventBenefits(OrderSheet orderSheet) {
-		return new PresentEventResult(eventType.getName(), present.getPrice(), Menu.CHAMPAGNE, presentQuantity);
+		if (isSatisfiedBy(orderSheet)) {
+			return new PresentEventResult(eventType.getName(), present.getPrice(), Menu.CHAMPAGNE, presentQuantity);
+		}
+		return null;
 	}
 
 	private boolean isMoreThanStandardPayment(int totalPayment) {

@@ -16,9 +16,9 @@ public abstract class Event {
 		this.endDate = endDate;
 	}
 
-	public boolean isDayOfWeekInDuration(LocalDate localDate) {
+	protected boolean isDayOfWeekInDuration(LocalDate localDate) {
 		return localDate.compareTo(startDate) >=0 && localDate.compareTo(endDate) <=0;
 	}
-	public abstract boolean isSatisfiedBy(OrderSheet orderSheet);
+	protected abstract boolean isSatisfiedBy(OrderSheet orderSheet);
 	public abstract EventResult getEventBenefits(OrderSheet orderSheet);
 }
