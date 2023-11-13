@@ -11,7 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import christmas.domain.order.OrderForm;
+import christmas.domain.order.OrderSheet;
 import christmas.domain.order.OrderInput;
 import christmas.domain.order.VisitDate;
 
@@ -33,9 +33,9 @@ public class OutputViewTest {
 	@Test
 	void testPrintStartEventBenefits() {
 		int visitDate = 1;
-		OrderForm orderForm = new OrderForm(new VisitDate(visitDate), new OrderInput("해산물파스타-2,레드와인-1,초코케이크-1"));
+		OrderSheet orderSheet = new OrderSheet(new VisitDate(visitDate), new OrderInput("해산물파스타-2,레드와인-1,초코케이크-1"));
 		OutputView outputView = new OutputView();
-		outputView.printStartEventBenefits(orderForm);
+		outputView.printStartEventBenefits(orderSheet);
 
 		assertThat(output.toString().trim()).isEqualTo(String.format(EVENT_BENEFITS_START_MESSAGE, visitDate).trim());
 	}
@@ -43,9 +43,9 @@ public class OutputViewTest {
 	@DisplayName("주문 출력 형식을 확인한다. 이때 출력 순서는 고려하지 않는다.")
 	@Test
 	void testPrintOrders() {
-		OrderForm orderForm = new OrderForm(new VisitDate(1), new OrderInput("해산물파스타-2,레드와인-1,초코케이크-1"));
+		OrderSheet orderSheet = new OrderSheet(new VisitDate(1), new OrderInput("해산물파스타-2,레드와인-1,초코케이크-1"));
 		OutputView outputView = new OutputView();
-		outputView.printOrders(orderForm);
+		outputView.printOrders(orderSheet);
 
 		String[] expectedOrdersFormat = {"해산물파스타 2개", "레드와인 1개", "초코케이크 1개"};
 

@@ -9,12 +9,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import christmas.domain.menu.Menu;
-import christmas.domain.order.OrderForm;
+import christmas.domain.order.OrderSheet;
 import christmas.domain.order.OrderInput;
 import christmas.domain.order.VisitDate;
 import christmas.exception.MenuNotFoundException;
 
-public class OrderFormTest {
+public class OrderSheetTest {
 	@DisplayName("존재하지 않는 메뉴를 입력하는 경우 예외를 던진다.")
 	@Test
 	void whenMenuNotExistedThrowException() {
@@ -22,7 +22,7 @@ public class OrderFormTest {
 		VisitDate visitDate = new VisitDate(1);
 		OrderInput orderInput = new OrderInput(invalidOrders);
 
-		assertThatThrownBy(() -> new OrderForm(visitDate, orderInput))
+		assertThatThrownBy(() -> new OrderSheet(visitDate, orderInput))
 			.isExactlyInstanceOf(MenuNotFoundException.class)
 			.hasMessageContaining(MENU_NOT_FOUND_MESSAGE);
 	}
@@ -34,9 +34,9 @@ public class OrderFormTest {
 		VisitDate visitDate = new VisitDate(1);
 		OrderInput orderInput = new OrderInput(invalidOrders);
 
-		OrderForm orderForm = new OrderForm(visitDate, orderInput);
+		OrderSheet orderSheet = new OrderSheet(visitDate, orderInput);
 
-		assertThat(orderForm.getOrders())
+		assertThat(orderSheet.getOrders())
 			.contains(entry(Menu.SEAFOOD_PASTA, 1), entry(Menu.RED_WINE, 1), entry(Menu.CHOCOLATE_CAKE, 1));
 	}
 
@@ -48,8 +48,8 @@ public class OrderFormTest {
 		sum += Menu.RED_WINE.getPayment(1);
 		sum += Menu.CHOCOLATE_CAKE.getPayment(1);
 
-		OrderForm orderForm = new OrderForm(new VisitDate(1), new OrderInput("해산물파스타-2,레드와인-1,초코케이크-1"));
-		int totalPrice = orderForm.getTotalPayment();
+		OrderSheet orderSheet = new OrderSheet(new VisitDate(1), new OrderInput("해산물파스타-2,레드와인-1,초코케이크-1"));
+		int totalPrice = orderSheet.getTotalPayment();
 
 		assertThat(totalPrice).isEqualTo(sum);
 	}

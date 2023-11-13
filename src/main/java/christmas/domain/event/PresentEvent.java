@@ -1,7 +1,7 @@
 package christmas.domain.event;
 
 import christmas.domain.menu.Menu;
-import christmas.domain.order.OrderForm;
+import christmas.domain.order.OrderSheet;
 import christmas.domain.result.EventResult;
 import christmas.domain.result.PresentEventResult;
 
@@ -12,12 +12,12 @@ public class PresentEvent extends Event{
 	private static final int requiredPayment = 120_000;
 
 	@Override
-	public boolean isMatch(OrderForm orderForm) {
-		return eventType.isDayOfWeekInDuration(orderForm.getVisitDate()) && isMoreThanStandardPayment(orderForm.getTotalPayment());
+	public boolean isSatisfiedBy(OrderSheet orderSheet) {
+		return eventType.isDayOfWeekInDuration(orderSheet.getVisitDate()) && isMoreThanStandardPayment(orderSheet.getTotalPayment());
 	}
 
 	@Override
-	public EventResult getEventBenefits(OrderForm orderForm) {
+	public EventResult getEventBenefits(OrderSheet orderSheet) {
 		return new PresentEventResult(eventType.getName(), present.getPrice(), Menu.CHAMPAGNE, presentQuantity);
 	}
 

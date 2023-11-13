@@ -2,7 +2,7 @@ package christmas.view;
 
 import java.text.DecimalFormat;
 
-import christmas.domain.order.OrderForm;
+import christmas.domain.order.OrderSheet;
 
 public class OutputView {
 	private static final String GREETING_MESSAGE = "안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.";
@@ -16,14 +16,14 @@ public class OutputView {
 		System.out.println(GREETING_MESSAGE);
 	}
 
-	public void printStartEventBenefits(OrderForm orderForm) {
-		System.out.println(String.format(EVENT_BENEFITS_START_MESSAGE, orderForm.getVisitDate().getDayOfMonth()));
+	public void printStartEventBenefits(OrderSheet orderSheet) {
+		System.out.println(String.format(EVENT_BENEFITS_START_MESSAGE, orderSheet.getVisitDate().getDayOfMonth()));
 	}
 
-	public void printOrders(OrderForm orderForm) {
+	public void printOrders(OrderSheet orderSheet) {
 		System.out.println(ORDERS_PRINT_TITLE);
 
-		orderForm.getOrders().forEach((menu, quantity) -> {
+		orderSheet.getOrders().forEach((menu, quantity) -> {
 			System.out.println(String.format(ORDERS_PRINT_FORMAT, menu.getMenuName(), quantity));
 		});
 		System.out.println();

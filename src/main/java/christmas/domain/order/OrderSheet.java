@@ -7,13 +7,13 @@ import christmas.domain.menu.Menu;
 import christmas.util.OrderConvertor;
 import christmas.validator.OrderValidator;
 
-public class OrderForm {
+public class OrderSheet {
 	private final VisitDate visitDate;
 	private final Map<Menu, Integer> orders;
 
-	public OrderForm(VisitDate visitDate, OrderInput input) {
+	public OrderSheet(VisitDate visitDate, OrderInput input) {
 		this.visitDate = visitDate;
-		this.orders = convertAndValidateInput(input);
+		this.orders = convertBy(input);
 	}
 
 	public Map<Menu, Integer> getOrders() {
@@ -31,7 +31,7 @@ public class OrderForm {
 			.sum();
 	}
 
-	private Map<Menu, Integer> convertAndValidateInput(OrderInput input) {
+	private Map<Menu, Integer> convertBy(OrderInput input) {
 		Map<Menu, Integer> orders = OrderConvertor.convertToMap(input);
 		OrderValidator.validateOrderOnlyDrinks(orders);
 		return orders;

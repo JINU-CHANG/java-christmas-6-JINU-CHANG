@@ -2,16 +2,17 @@ package christmas;
 
 import java.util.Set;
 
-import christmas.controller.Controller;
-import christmas.domain.event.EventCalculator;
+import christmas.controller.EventPlannerController;
+import christmas.domain.event.ChristmasDDayEvent;
+import christmas.domain.event.EventPlanner;
 import christmas.domain.event.PresentEvent;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 
 public class Application {
     public static void main(String[] args) {
-        EventCalculator eventCalculator = new EventCalculator(Set.of(new PresentEvent()));
-        Controller controller = new Controller(new OutputView(), new InputView(), eventCalculator);
+        EventPlanner eventPlanner = new EventPlanner(Set.of(new ChristmasDDayEvent(), new PresentEvent() ));
+        EventPlannerController controller = new EventPlannerController(new OutputView(), new InputView(), eventPlanner);
         controller.run();
     }
 }

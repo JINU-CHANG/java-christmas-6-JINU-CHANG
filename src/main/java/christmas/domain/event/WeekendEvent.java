@@ -4,7 +4,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 import christmas.domain.menu.MenuType;
-import christmas.domain.order.OrderForm;
+import christmas.domain.order.OrderSheet;
 import christmas.domain.result.EventResult;
 import christmas.domain.result.WeekendEventResult;
 
@@ -14,13 +14,13 @@ public class WeekendEvent extends Event{
 	private static final int discount = 2_023;
 
 	@Override
-	public boolean isMatch(OrderForm orderForm) {
-		return eventType.isDayOfWeekInDuration(orderForm.getVisitDate()) && isWeekend(orderForm.getVisitDate());
+	public boolean isSatisfiedBy(OrderSheet orderSheet) {
+		return eventType.isDayOfWeekInDuration(orderSheet.getVisitDate()) && isWeekend(orderSheet.getVisitDate());
 	}
 
 	@Override
-	public EventResult getEventBenefits(OrderForm orderForm) {
-		int benefitSum = orderForm.getOrders().entrySet().stream()
+	public EventResult getEventBenefits(OrderSheet orderSheet) {
+		int benefitSum = orderSheet.getOrders().entrySet().stream()
 			.filter(order -> order.getKey().getType().equals(applicableMenuType))
 			.mapToInt(order -> order.getValue() * discount)
 			.sum();

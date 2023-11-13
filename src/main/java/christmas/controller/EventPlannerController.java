@@ -3,55 +3,54 @@ package christmas.controller;
 import java.util.Set;
 import java.util.function.Supplier;
 
-import christmas.domain.event.EventCalculator;
-import christmas.domain.order.OrderForm;
+import christmas.domain.event.EventPlanner;
+import christmas.domain.order.OrderSheet;
 import christmas.domain.order.OrderInput;
 import christmas.domain.order.VisitDate;
 import christmas.domain.result.EventResult;
-import christmas.domain.result.PresentEventResult;
 import christmas.exception.CommonIllegalArgumentException;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 
-public class Controller {
+public class EventPlannerController {
 	private final OutputView outputView;
 	private final InputView inputView;
-	private final EventCalculator eventCalculator;
+	private final EventPlanner eventPlanner;
 
-	public Controller(OutputView outputView, InputView inputView, EventCalculator eventCalculator) {
+	public EventPlannerController(OutputView outputView, InputView inputView, EventPlanner eventPlanner) {
 		this.outputView = outputView;
 		this.inputView = inputView;
-		this.eventCalculator = eventCalculator;
+		this.eventPlanner = eventPlanner;
 	}
 
 	public void run() {
 		outputView.printGreeting();
 
 		VisitDate visitDate = tryUntilInputIsValid(() -> getVisitDate());
-		OrderForm orderForm = tryUntilInputIsValid(() -> getOrders(visitDate));
+		OrderSheet orderSheet = tryUntilInputIsValid(() -> getOrders(visitDate));
 
-		outputView.printStartEventBenefits(orderForm);
+		outputView.printStartEventBenefits(orderSheet);
 
-		showOrders(orderForm);
-		showEventBenefits(orderForm);
+		showOrders(orderSheet);
+		showEventBenefits(orderSheet);
 	}
 
 	private VisitDate getVisitDate() {
 		return new VisitDate(inputView.readVisitDate());
 	}
 
-	private OrderForm getOrders(VisitDate visitDate) {
+	private OrderSheet getOrders(VisitDate visitDate) {
 		OrderInput orderInput = new OrderInput(inputView.readOrders());
-		return new OrderForm(visitDate, orderInput);
+		return new OrderSheet(visitDate, orderInput);
 	}
 
-	private void showEventBenefits(OrderForm orderForm) {
-		Set<EventResult> results = eventCalculator.calculate(orderForm);
+	private void showEventBenefits(OrderSheet orderSheet) {
+		Set<EventResult> results = eventPlanner.calculate(orderSheet);
 	}
 
-	private void showOrders(OrderForm orderForm) {
-		outputView.printOrders(orderForm);
-		outputView.printTotalPayment(orderForm.getTotalPayment());
+	private void showOrders(OrderSheet orderSheet) {
+		outputView.printOrders(orderSheet);
+		outputView.printTotalPayment(orderSheet.getTotalPayment());
 	}
 
 	private <T> T tryUntilInputIsValid(Supplier<T> function) {

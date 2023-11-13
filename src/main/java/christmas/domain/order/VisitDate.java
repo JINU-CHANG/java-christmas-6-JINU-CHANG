@@ -11,14 +11,14 @@ public class VisitDate {
 	private final LocalDate visitDate;
 
 	public VisitDate(int input) {
-		this.visitDate = convertToLocalDate(input);
+		this.visitDate = convertBy(input);
 	}
 
 	public LocalDate getVisitDate() {
 		return this.visitDate;
 	}
 
-	private LocalDate convertToLocalDate(int input) {
+	private LocalDate convertBy(int input) {
 		try {
 			return visitYearMonth.atDay(input);
 		} catch (DateTimeException e) {
