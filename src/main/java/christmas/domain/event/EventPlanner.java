@@ -30,7 +30,7 @@ public class EventPlanner {
 		if (isSatisfiedBy(orderSheet)) {
 			return events.stream()
 				.map(event-> event.getEventBenefits(orderSheet))
-				.filter(eventResult -> eventResult==null)
+				.filter(eventResult -> eventResult!=null)
 				.collect(Collectors.toSet());
 		}
 		return null;

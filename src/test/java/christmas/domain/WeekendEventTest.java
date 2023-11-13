@@ -44,7 +44,7 @@ public class WeekendEventTest {
 		EventResult weekendEventResult = weekendEvent.getEventBenefits(orderSheet);
 
 		assertThat(weekendEventResult).extracting("name", "benefit")
-			.containsExactlyInAnyOrder("주말 할인", 6069);
+			.containsExactlyInAnyOrder("주말 할인", -6069);
 	}
 
 	private Event createEvent() {

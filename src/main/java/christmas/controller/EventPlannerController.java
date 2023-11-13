@@ -43,8 +43,7 @@ public class EventPlannerController {
 
 	private void showEventBenefits(OrderSheet orderSheet) {
 		OutputView.printPresentEventResult(eventPlanner.getPresentEventResult(orderSheet));
-
-		Set<EventResult> results = eventPlanner.calculate(orderSheet);
+		OutputView.printEventBenefits(eventPlanner.calculate(orderSheet));
 	}
 
 	private void showOrders(OrderSheet orderSheet) {

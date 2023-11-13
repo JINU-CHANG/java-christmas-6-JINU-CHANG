@@ -8,7 +8,7 @@ import christmas.domain.result.EventResult;
 import christmas.domain.result.SpecialEventResult;
 
 public class SpecialEvent extends Event{
-	private static final int discount = 1_000;
+	private static final int discount = -1_000;
 
 	public SpecialEvent(EventType eventType, LocalDate startDate, LocalDate endDate) {
 		super(eventType, startDate, endDate);

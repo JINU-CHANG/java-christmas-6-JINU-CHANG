@@ -26,7 +26,7 @@ public class PresentEventTest {
 		EventResult eventBenefit = presentEvent.getEventBenefits(moreThanRequiredPaymentOrder);
 
 		assertThat(eventBenefit).extracting("name", "benefit", "present")
-			.containsExactlyInAnyOrder("증정 이벤트", 25_000, Menu.CHAMPAGNE);
+			.containsExactlyInAnyOrder("증정 이벤트", -25_000, Menu.CHAMPAGNE.getMenuName());
 	}
 
 	private Event createEvent() {

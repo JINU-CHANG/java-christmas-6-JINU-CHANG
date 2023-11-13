@@ -1,8 +1,10 @@
 package christmas.view;
 
 import java.text.DecimalFormat;
+import java.util.Set;
 
 import christmas.domain.order.OrderSheet;
+import christmas.domain.result.EventResult;
 import christmas.domain.result.PresentEventResult;
 
 public class OutputView {
@@ -13,6 +15,8 @@ public class OutputView {
 	public static final String PAYMENT_BEFORE_EVENT_FORMAT= "<할인 전 총주문 금액>\n%s원";
 	public static final String PRESENT_EVENT_FORMAT = "<증정 메뉴>";
 	public static final String NOT_EXIST = "없음\n";
+	public static final String EVENT_BENEFITS_TITLE = "<혜택 내역>";
+	public static final String EVENT_BENEFITS_FORMAT = "%s: %s원";
 	private static final DecimalFormat decimalFormat = new DecimalFormat("###,###");
 
 	public static void printGreeting() {
@@ -26,26 +30,44 @@ public class OutputView {
 	public static void printOrders(OrderSheet orderSheet) {
 		System.out.println(ORDERS_PRINT_TITLE);
 
-		orderSheet.getOrders().forEach((menu, quantity) -> {
-			System.out.println(String.format(MENU_QUANTITY_FORMAT, menu.getMenuName(), quantity));
-		});
+		orderSheet.getOrders().forEach((menu, quantity) -> System.out.println(String.format(MENU_QUANTITY_FORMAT, menu.getMenuName(), quantity)));
 		System.out.println();
 	}
 
 	public static void printTotalPayment(int totalPayment) {
 		System.out.println(String.format(PAYMENT_BEFORE_EVENT_FORMAT, decimalFormat.format(totalPayment)));
+		System.out.println();
 	}
 
 	public static void printPresentEventResult(PresentEventResult presentEventResult) {
 		System.out.println(PRESENT_EVENT_FORMAT);
-		if (presentEventResult != null) {
-			System.out.println(String.format(MENU_QUANTITY_FORMAT,
-				presentEventResult.getPresent(),
-				presentEventResult.getPresentQuantity()));
-			System.out.println();
+
+		if (presentEventResult == null) {
+			printNotExist();
 			return;
 		}
 
+		System.out.println(String.format(MENU_QUANTITY_FORMAT,
+			presentEventResult.getPresent(),
+			presentEventResult.getPresentQuantity()));
+		System.out.println();
+	}
+
+	public static void printEventBenefits(Set<EventResult> events) {
+		System.out.println(EVENT_BENEFITS_TITLE);
+
+		if (events == null) {
+			printNotExist();
+			return;
+		}
+
+		events.stream().forEach(result ->
+					System.out.println(
+						String.format(EVENT_BENEFITS_FORMAT,
+						result.getName(), decimalFormat.format(result.getBenefit()))));
+	}
+
+	private static void printNotExist() {
 		System.out.println(NOT_EXIST);
 		System.out.println();
 	}

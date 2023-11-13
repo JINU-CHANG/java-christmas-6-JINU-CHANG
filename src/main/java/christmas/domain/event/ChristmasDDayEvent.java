@@ -7,8 +7,8 @@ import christmas.domain.result.ChristmasDDayEventResult;
 import christmas.domain.result.EventResult;
 
 public class ChristmasDDayEvent extends Event{
-	private static final int baseDiscount = 1_000;
-	private static final int increment = 100;
+	private static final int baseDiscount = -1_000;
+	private static final int increment = -100;
 
 	public ChristmasDDayEvent(EventType eventType, LocalDate startDate, LocalDate endDate) {
 		super(eventType, startDate, endDate);
@@ -28,6 +28,6 @@ public class ChristmasDDayEvent extends Event{
 	}
 
 	private int calculateDiscount(OrderSheet orderSheet) {
-		return baseDiscount + ((orderSheet.getVisitDate().getDayOfMonth()-1) * increment);
+		return (baseDiscount + ((orderSheet.getVisitDate().getDayOfMonth()-1) * increment));
 	}
 }
