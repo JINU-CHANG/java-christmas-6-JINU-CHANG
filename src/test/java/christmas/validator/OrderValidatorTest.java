@@ -1,4 +1,4 @@
-package christmas.domain;
+package christmas.validator;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 

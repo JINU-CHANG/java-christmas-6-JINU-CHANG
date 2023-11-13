@@ -1,4 +1,4 @@
-package christmas.domain;
+package christmas.dto;
 
 import static christmas.exception.IllegalDateException.INVALID_DATE_MESSAGE;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
