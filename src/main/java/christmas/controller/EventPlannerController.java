@@ -51,7 +51,13 @@ public class EventPlannerController {
 
 		Set<EventResult> results = eventPlannerService.getEventResult(orderSheet);
 		OutputView.printEventBenefits(results);
+
+		int totalBenefits = eventPlannerService.getTotalBenefits(results);
 		OutputView.printTotalBenefits(eventPlannerService.getTotalBenefits(results));
+	}
+
+	private void showBadge(int totalBenefits) {
+		eventPlannerService.getBadge(totalBenefits);
 	}
 
 	private <T> T tryUntilInputIsValid(Supplier<T> function) {
