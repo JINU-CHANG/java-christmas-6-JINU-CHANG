@@ -4,8 +4,8 @@ import java.time.LocalDate;
 
 import christmas.domain.menu.Menu;
 import christmas.domain.order.OrderSheet;
-import christmas.domain.result.EventResult;
-import christmas.domain.result.PresentEventResult;
+import christmas.dto.result.EventResult;
+import christmas.dto.result.PresentEventResult;
 
 public class PresentEvent extends Event{
 	private final Menu present = Menu.CHAMPAGNE;

@@ -11,9 +11,9 @@ import christmas.domain.event.Event;
 import christmas.domain.event.EventType;
 import christmas.domain.event.SpecialEvent;
 import christmas.domain.order.OrderSheet;
-import christmas.domain.order.OrderInput;
-import christmas.domain.order.VisitDate;
-import christmas.domain.result.EventResult;
+import christmas.dto.order.OrderInput;
+import christmas.dto.order.VisitDate;
+import christmas.dto.result.EventResult;
 
 public class SpecialEventTest {
 	private final Event specialEvent = createEvent();

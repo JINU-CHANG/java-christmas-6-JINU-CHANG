@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 
 import christmas.domain.menu.Menu;
 import christmas.domain.order.OrderSheet;
-import christmas.domain.order.OrderInput;
-import christmas.domain.order.VisitDate;
+import christmas.dto.order.OrderInput;
+import christmas.dto.order.VisitDate;
 import christmas.exception.MenuNotFoundException;
 
 public class OrderSheetTest {

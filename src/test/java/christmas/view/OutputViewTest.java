@@ -13,9 +13,9 @@ import org.junit.jupiter.api.Test;
 
 import christmas.domain.menu.Menu;
 import christmas.domain.order.OrderSheet;
-import christmas.domain.order.OrderInput;
-import christmas.domain.order.VisitDate;
-import christmas.domain.result.PresentEventResult;
+import christmas.dto.order.OrderInput;
+import christmas.dto.order.VisitDate;
+import christmas.dto.result.PresentEventResult;
 
 public class OutputViewTest {
 	private final ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -36,7 +36,7 @@ public class OutputViewTest {
 	void testPrintStartEventBenefits() {
 		int visitDate = 1;
 		OrderSheet orderSheet = new OrderSheet(new VisitDate(visitDate), new OrderInput("해산물파스타-2,레드와인-1,초코케이크-1"));
-		OutputView.printStartEventBenefits(orderSheet);
+		OutputView.printStartEventBenefits(orderSheet.getVisitDate());
 
 		assertThat(output.toString().trim()).isEqualTo(String.format(EVENT_BENEFITS_START_MESSAGE, visitDate).trim());
 	}
@@ -45,7 +45,7 @@ public class OutputViewTest {
 	@Test
 	void testPrintOrders() {
 		OrderSheet orderSheet = new OrderSheet(new VisitDate(1), new OrderInput("해산물파스타-2,레드와인-1,초코케이크-1"));
-		OutputView.printOrders(orderSheet);
+		OutputView.printOrders(orderSheet.getOrders());
 
 		String[] expectedOrdersFormat = {"해산물파스타 2개", "레드와인 1개", "초코케이크 1개"};
 

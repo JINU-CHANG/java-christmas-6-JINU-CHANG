@@ -5,10 +5,9 @@ import java.util.function.Supplier;
 
 import christmas.domain.event.EventPlanner;
 import christmas.domain.order.OrderSheet;
-import christmas.domain.order.OrderInput;
-import christmas.domain.order.VisitDate;
-import christmas.domain.result.EventResult;
-import christmas.domain.result.PresentEventResult;
+import christmas.dto.order.OrderInput;
+import christmas.dto.order.VisitDate;
+import christmas.dto.result.EventResult;
 import christmas.exception.CommonIllegalArgumentException;
 import christmas.view.InputView;
 import christmas.view.OutputView;
@@ -26,7 +25,7 @@ public class EventPlannerController {
 		VisitDate visitDate = tryUntilInputIsValid(() -> getVisitDate());
 		OrderSheet orderSheet = tryUntilInputIsValid(() -> getOrders(visitDate));
 
-		OutputView.printStartEventBenefits(orderSheet);
+		OutputView.printStartEventBenefits(orderSheet.getVisitDate());
 
 		showOrders(orderSheet);
 		showEventBenefits(orderSheet);
@@ -41,14 +40,17 @@ public class EventPlannerController {
 		return new OrderSheet(visitDate, orderInput);
 	}
 
-	private void showEventBenefits(OrderSheet orderSheet) {
-		OutputView.printPresentEventResult(eventPlanner.getPresentEventResult(orderSheet));
-		OutputView.printEventBenefits(eventPlanner.calculate(orderSheet));
+	private void showOrders(OrderSheet orderSheet) {
+		OutputView.printOrders(orderSheet.getOrders());
+		OutputView.printTotalPayment(orderSheet.getTotalPayment());
 	}
 
-	private void showOrders(OrderSheet orderSheet) {
-		OutputView.printOrders(orderSheet);
-		OutputView.printTotalPayment(orderSheet.getTotalPayment());
+	private void showEventBenefits(OrderSheet orderSheet) {
+		OutputView.printPresentEventResult(eventPlanner.getPresentEventResult(orderSheet));
+
+		Set<EventResult> results = eventPlanner.calculate(orderSheet);
+		OutputView.printEventBenefits(results);
+		OutputView.printTotalBenefits(eventPlanner.calculateTotalBenefits(results));
 	}
 
 	private <T> T tryUntilInputIsValid(Supplier<T> function) {

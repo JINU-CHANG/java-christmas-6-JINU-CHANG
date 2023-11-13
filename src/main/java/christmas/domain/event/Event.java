@@ -3,7 +3,7 @@ package christmas.domain.event;
 import java.time.LocalDate;
 
 import christmas.domain.order.OrderSheet;
-import christmas.domain.result.EventResult;
+import christmas.dto.result.EventResult;
 
 public abstract class Event {
 	EventType eventType;

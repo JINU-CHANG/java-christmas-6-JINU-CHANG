@@ -1,11 +1,14 @@
 package christmas.view;
 
 import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.util.Map;
 import java.util.Set;
 
+import christmas.domain.menu.Menu;
 import christmas.domain.order.OrderSheet;
-import christmas.domain.result.EventResult;
-import christmas.domain.result.PresentEventResult;
+import christmas.dto.result.EventResult;
+import christmas.dto.result.PresentEventResult;
 
 public class OutputView {
 	private static final String GREETING_MESSAGE = "안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.";
@@ -17,20 +20,21 @@ public class OutputView {
 	public static final String NOT_EXIST = "없음\n";
 	public static final String EVENT_BENEFITS_TITLE = "<혜택 내역>";
 	public static final String EVENT_BENEFITS_FORMAT = "%s: %s원";
+	public static final String BENEFITS_FORMAT = "<총혜택 금액>\n%s원";
 	private static final DecimalFormat decimalFormat = new DecimalFormat("###,###");
 
 	public static void printGreeting() {
 		System.out.println(GREETING_MESSAGE);
 	}
 
-	public static void printStartEventBenefits(OrderSheet orderSheet) {
-		System.out.println(String.format(EVENT_BENEFITS_START_MESSAGE, orderSheet.getVisitDate().getDayOfMonth()));
+	public static void printStartEventBenefits(LocalDate localDate) {
+		System.out.println(String.format(EVENT_BENEFITS_START_MESSAGE, localDate.getDayOfMonth()));
 	}
 
-	public static void printOrders(OrderSheet orderSheet) {
+	public static void printOrders(Map<Menu, Integer> orders) {
 		System.out.println(ORDERS_PRINT_TITLE);
 
-		orderSheet.getOrders().forEach((menu, quantity) -> System.out.println(String.format(MENU_QUANTITY_FORMAT, menu.getMenuName(), quantity)));
+		orders.forEach((menu, quantity) -> System.out.println(String.format(MENU_QUANTITY_FORMAT, menu.getMenuName(), quantity)));
 		System.out.println();
 	}
 
@@ -65,6 +69,11 @@ public class OutputView {
 					System.out.println(
 						String.format(EVENT_BENEFITS_FORMAT,
 						result.getName(), decimalFormat.format(result.getBenefit()))));
+		System.out.println();
+	}
+
+	public static void printTotalBenefits(int totalBenefits) {
+		System.out.println(String.format(BENEFITS_FORMAT, decimalFormat.format(totalBenefits)));
 	}
 
 	private static void printNotExist() {

@@ -5,8 +5,8 @@ import java.time.LocalDate;
 
 import christmas.domain.menu.MenuType;
 import christmas.domain.order.OrderSheet;
-import christmas.domain.result.EventResult;
-import christmas.domain.result.WeekendEventResult;
+import christmas.dto.result.EventResult;
+import christmas.dto.result.WeekendEventResult;
 
 public class WeekdayEvent extends Event{
 	private static final MenuType applicableMenuType = MenuType.DESSERT;

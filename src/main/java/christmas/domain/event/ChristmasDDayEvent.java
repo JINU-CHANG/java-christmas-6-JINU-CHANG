@@ -3,8 +3,8 @@ package christmas.domain.event;
 import java.time.LocalDate;
 
 import christmas.domain.order.OrderSheet;
-import christmas.domain.result.ChristmasDDayEventResult;
-import christmas.domain.result.EventResult;
+import christmas.dto.result.ChristmasDDayEventResult;
+import christmas.dto.result.EventResult;
 
 public class ChristmasDDayEvent extends Event{
 	private static final int baseDiscount = -1_000;

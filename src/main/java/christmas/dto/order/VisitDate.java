@@ -1,4 +1,4 @@
-package christmas.domain.order;
+package christmas.dto.order;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;

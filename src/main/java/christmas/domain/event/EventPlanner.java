@@ -5,8 +5,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import christmas.domain.order.OrderSheet;
-import christmas.domain.result.EventResult;
-import christmas.domain.result.PresentEventResult;
+import christmas.dto.result.EventResult;
+import christmas.dto.result.PresentEventResult;
 import christmas.exception.EventNotFoundException;
 
 public class EventPlanner {
@@ -34,6 +34,10 @@ public class EventPlanner {
 				.collect(Collectors.toSet());
 		}
 		return null;
+	}
+
+	public int calculateTotalBenefits(Set<EventResult> results) {
+		return results.stream().mapToInt(result -> result.getBenefit()).sum();
 	}
 
 	private boolean isSatisfiedBy(OrderSheet orderSheet) {

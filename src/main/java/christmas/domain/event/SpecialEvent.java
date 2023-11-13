@@ -4,8 +4,8 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 import christmas.domain.order.OrderSheet;
-import christmas.domain.result.EventResult;
-import christmas.domain.result.SpecialEventResult;
+import christmas.dto.result.EventResult;
+import christmas.dto.result.SpecialEventResult;
 
 public class SpecialEvent extends Event{
 	private static final int discount = -1_000;

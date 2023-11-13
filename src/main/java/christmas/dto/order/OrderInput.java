@@ -1,4 +1,4 @@
-package christmas.domain.order;
+package christmas.dto.order;
 
 import christmas.util.OrderParser;
 import christmas.validator.OrderValidator;

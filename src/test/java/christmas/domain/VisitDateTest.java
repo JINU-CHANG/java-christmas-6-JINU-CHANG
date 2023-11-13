@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import christmas.domain.order.VisitDate;
+import christmas.dto.order.VisitDate;
 import christmas.exception.IllegalDateException;
 
 public class VisitDateTest {
