@@ -8,11 +8,15 @@ import christmas.domain.result.EventResult;
 import christmas.domain.result.SpecialEventResult;
 
 public class SpecialEvent extends Event{
-	private final EventType eventType = EventType.SPECIAL;
 	private static final int discount = 1_000;
+
+	public SpecialEvent(EventType eventType, LocalDate startDate, LocalDate endDate) {
+		super(eventType, startDate, endDate);
+	}
+
 	@Override
 	public boolean isSatisfiedBy(OrderSheet orderSheet) {
-		return eventType.isDayOfWeekInDuration(orderSheet.getVisitDate()) && isSpecialDay(orderSheet.getVisitDate());
+		return isDayOfWeekInDuration(orderSheet.getVisitDate()) && isSpecialDay(orderSheet.getVisitDate());
 	}
 
 	@Override

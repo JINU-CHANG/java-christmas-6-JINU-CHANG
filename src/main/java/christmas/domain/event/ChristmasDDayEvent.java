@@ -1,17 +1,22 @@
 package christmas.domain.event;
 
+import java.time.LocalDate;
+
 import christmas.domain.order.OrderSheet;
 import christmas.domain.result.ChristmasDDayEventResult;
 import christmas.domain.result.EventResult;
 
 public class ChristmasDDayEvent extends Event{
-	private final EventType eventType = EventType.CHRISTMAS_DDAY;
 	private static final int baseDiscount = 1_000;
 	private static final int increment = 100;
 
+	public ChristmasDDayEvent(EventType eventType, LocalDate startDate, LocalDate endDate) {
+		super(eventType, startDate, endDate);
+	}
+
 	@Override
 	public boolean isSatisfiedBy(OrderSheet orderSheet) {
-		return eventType.isDayOfWeekInDuration(orderSheet.getVisitDate());
+		return isDayOfWeekInDuration(orderSheet.getVisitDate());
 	}
 
 	@Override

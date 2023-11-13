@@ -9,13 +9,16 @@ import christmas.domain.result.EventResult;
 import christmas.domain.result.WeekendEventResult;
 
 public class WeekendEvent extends Event{
-	private final EventType eventType = EventType.WEEKEND;
 	private static final MenuType applicableMenuType = MenuType.MAIN;
 	private static final int discount = 2_023;
 
+	public WeekendEvent(EventType eventType, LocalDate startDate, LocalDate endDate) {
+		super(eventType, startDate, endDate);
+	}
+
 	@Override
 	public boolean isSatisfiedBy(OrderSheet orderSheet) {
-		return eventType.isDayOfWeekInDuration(orderSheet.getVisitDate()) && isWeekend(orderSheet.getVisitDate());
+		return isDayOfWeekInDuration(orderSheet.getVisitDate()) && isWeekend(orderSheet.getVisitDate());
 	}
 
 	@Override

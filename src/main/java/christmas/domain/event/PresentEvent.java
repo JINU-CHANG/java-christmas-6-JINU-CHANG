@@ -1,19 +1,24 @@
 package christmas.domain.event;
 
+import java.time.LocalDate;
+
 import christmas.domain.menu.Menu;
 import christmas.domain.order.OrderSheet;
 import christmas.domain.result.EventResult;
 import christmas.domain.result.PresentEventResult;
 
 public class PresentEvent extends Event{
-	private final EventType eventType = EventType.PRESENT;
 	private final Menu present = Menu.CHAMPAGNE;
 	private static final int presentQuantity = 1;
 	private static final int requiredPayment = 120_000;
 
+	public PresentEvent(EventType eventType, LocalDate startDate, LocalDate endDate) {
+		super(eventType, startDate, endDate);
+	}
+
 	@Override
 	public boolean isSatisfiedBy(OrderSheet orderSheet) {
-		return eventType.isDayOfWeekInDuration(orderSheet.getVisitDate()) && isMoreThanStandardPayment(orderSheet.getTotalPayment());
+		return isDayOfWeekInDuration(orderSheet.getVisitDate()) && isMoreThanStandardPayment(orderSheet.getTotalPayment());
 	}
 
 	@Override
