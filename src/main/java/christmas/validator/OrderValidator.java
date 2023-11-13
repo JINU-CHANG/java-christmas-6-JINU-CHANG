@@ -12,7 +12,7 @@ import christmas.exception.OrderQuantityException;
 import christmas.util.OrderParser;
 
 public class OrderValidator {
-	private static final String FORMAT_PATTERN = "[가-힣]+-\\d";
+	private static final String FORMAT_PATTERN = "[가-힣]+-\\d+";
 	private static final int MAX_TOTAL_QUANTITY = 20;
 
 	public static void validatePattern(String[] input) {
