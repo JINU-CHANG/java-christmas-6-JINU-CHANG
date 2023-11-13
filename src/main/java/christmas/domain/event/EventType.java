@@ -12,6 +12,10 @@ public enum EventType {
 
 	WEEKEND("주말 할인",
 		LocalDate.of(2023, 12, 1),
+		LocalDate.of(2023, 12, 31)),
+
+	WEEKDAY("평일 할인",
+		LocalDate.of(2023, 12, 1),
 		LocalDate.of(2023, 12, 31));
 
 	private String name;
