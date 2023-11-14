@@ -9,7 +9,7 @@ public class InputView {
 
 	public static int readVisitDate() {
 		System.out.println(ASK_VISIT_DATE_MESSAGE);
-		String visitDate = Console.readLine();
+		String visitDate = Console.readLine().trim();
 		if (isNotNumeric(visitDate)) {
 			throw new IllegalDateException();
 		}
@@ -18,7 +18,7 @@ public class InputView {
 
 	public static String readOrders() {
 		System.out.println(ASK_ORDERS_MESSAGE);
-		return Console.readLine();
+		return Console.readLine().trim();
 	}
 
 	private static boolean isNotNumeric(String input) {
