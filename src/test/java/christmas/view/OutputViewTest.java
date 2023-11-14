@@ -36,7 +36,7 @@ public class OutputViewTest {
 	void testPrintStartEventBenefits() {
 		int visitDate = 1;
 		OrderSheet orderSheet = new OrderSheet(new VisitDate(visitDate), new OrderInput("해산물파스타-2,레드와인-1,초코케이크-1"));
-		OutputView.printStartEventBenefits(orderSheet.getVisitDate());
+		OutputView.printStartEventPlanner(orderSheet.getVisitDate());
 
 		assertThat(output.toString().trim()).isEqualTo(String.format(EVENT_BENEFITS_START_MESSAGE, visitDate).trim());
 	}

@@ -41,18 +41,21 @@ public class EventPlannerService {
 
 	public int getExpectedPayment(OrderSheet orderSheet) {
 		if (isSatisfiedBy(orderSheet)) {
-			int discountAmount = getEventBenefits(calculatorService.calculate(orderSheet, extractDiscountableEvents()));
+			int discountAmount = getTotalBenefits(calculatorService.calculate(orderSheet, extractDiscountableEvents()));
 			return calculatorService.calculateExpectedPayment(orderSheet.getTotalPayment(), discountAmount);
 		}
 		return orderSheet.getTotalPayment();
 	}
 
-	public int getEventBenefits(Set<EventResult> results) {
-		return calculatorService.calculateEventBenefits(results);
+	public int getTotalBenefits(Set<EventResult> results) {
+		if (results != null) {
+			return calculatorService.calculateEventBenefits(results);
+		}
+		return 0;
 	}
 
-	public BadgeResult getBadge(int totalBenefits) {
-		return Optional.ofNullable(Badge.of(totalBenefits))
+	public BadgeResult getBadge(int eventBenefits) {
+		return Optional.ofNullable(Badge.of(eventBenefits))
 			.map(badge -> new BadgeResult(badge.getName()))
 			.orElse(null);
 	}

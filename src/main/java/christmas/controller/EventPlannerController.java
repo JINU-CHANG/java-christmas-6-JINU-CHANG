@@ -4,6 +4,7 @@ import java.util.Set;
 import java.util.function.Supplier;
 
 import christmas.domain.event.PresentEvent;
+import christmas.dto.result.PresentEventResult;
 import christmas.service.EventPlannerService;
 import christmas.domain.order.OrderSheet;
 import christmas.dto.order.OrderInput;
@@ -23,15 +24,18 @@ public class EventPlannerController {
 	public void run() {
 		OutputView.printGreeting();
 
-		VisitDate visitDate = tryUntilInputIsValid(this::getVisitDate);
-		OrderInput orderInput = tryUntilInputIsValid(this::getOrderInput);
+		OrderSheet orderSheet = getOrders();
 
-		OrderSheet orderSheet = eventPlannerService.createOrderSheet(visitDate, orderInput);
-
-		OutputView.printStartEventBenefits(orderSheet.getVisitDate());
+		OutputView.printStartEventPlanner(orderSheet.getVisitDate());
 
 		showOrders(orderSheet);
 		showEventBenefits(orderSheet);
+	}
+
+	private OrderSheet getOrders() {
+		VisitDate visitDate = tryUntilInputIsValid(this::getVisitDate);
+		OrderInput orderInput = tryUntilInputIsValid(this::getOrderInput);
+		return eventPlannerService.createOrderSheet(visitDate, orderInput);
 	}
 
 	private VisitDate getVisitDate() {
@@ -48,14 +52,19 @@ public class EventPlannerController {
 	}
 
 	private void showEventBenefits(OrderSheet orderSheet) {
-		OutputView.printPresentEventResult(eventPlannerService.getSpecificEventResult(orderSheet, PresentEvent.class));
+		PresentEventResult presentEventResult = eventPlannerService.getSpecificEventResult(orderSheet, PresentEvent.class);
+		OutputView.printPresentEventResult(presentEventResult);
 
 		Set<EventResult> results = eventPlannerService.getEventResults(orderSheet);
-		OutputView.printEventBenefits(results);
+		OutputView.printEventResults(results);
 
 		int totalBenefits = eventPlannerService.getTotalBenefits(results);
-		OutputView.printTotalBenefits(eventPlannerService.getTotalBenefits(results));
-		OutputView.printExpectedPayment(eventPlannerService.getExpectedPayment(orderSheet));
+		OutputView.printEventBenefits(totalBenefits);
+
+		int expectedPayment = eventPlannerService.getExpectedPayment(orderSheet);
+		OutputView.printExpectedPayment(expectedPayment);
+
+		showBadge(totalBenefits);
 	}
 
 	private void showBadge(int totalBenefits) {

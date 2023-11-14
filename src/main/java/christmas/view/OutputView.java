@@ -28,7 +28,7 @@ public class OutputView {
 		System.out.println(GREETING_MESSAGE);
 	}
 
-	public static void printStartEventBenefits(LocalDate localDate) {
+	public static void printStartEventPlanner(LocalDate localDate) {
 		System.out.println(String.format(EVENT_BENEFITS_START_MESSAGE, localDate.getDayOfMonth()));
 	}
 
@@ -58,7 +58,7 @@ public class OutputView {
 		System.out.println();
 	}
 
-	public static void printEventBenefits(Set<EventResult> events) {
+	public static void printEventResults(Set<EventResult> events) {
 		System.out.println(EVENT_BENEFITS_TITLE);
 
 		if (events == null) {
@@ -73,8 +73,8 @@ public class OutputView {
 		System.out.println();
 	}
 
-	public static void printTotalBenefits(int totalBenefits) {
-		System.out.println(String.format(BENEFITS_FORMAT, decimalFormat.format(totalBenefits)));
+	public static void printEventBenefits(int eventBenefits) {
+		System.out.println(String.format(BENEFITS_FORMAT, decimalFormat.format(eventBenefits)));
 		System.out.println();
 	}
 
