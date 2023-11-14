@@ -8,46 +8,47 @@ import java.util.stream.Collectors;
 import christmas.domain.badge.Badge;
 import christmas.domain.event.Discountable;
 import christmas.domain.event.Event;
-import christmas.domain.event.PresentEvent;
 import christmas.domain.order.OrderSheet;
 import christmas.dto.badge.BadgeResult;
 import christmas.dto.order.OrderInput;
 import christmas.dto.order.VisitDate;
 import christmas.dto.result.EventResult;
-import christmas.dto.result.PresentEventResult;
 
 public class EventPlannerService {
-	private final Set<Event> events;
 	private static final int eventCondition = 10_000;
+	private final CalculatorService calculatorService;
+	private final Set<Event> events;
 
-	public EventPlannerService(Set<Event> events) {
+	public EventPlannerService(Set<Event> events, CalculatorService calculatorService) {
 		this.events = new HashSet<>(events);
+		this.calculatorService = calculatorService;
 	}
 
 	public OrderSheet createOrderSheet(VisitDate visitDate, OrderInput orderInput) {
 		return new OrderSheet(visitDate, orderInput);
 	}
 
-	public PresentEventResult getPresentEventResult(OrderSheet orderSheet) {
-		return (PresentEventResult)extractEvent(PresentEvent.class).getEventBenefits(orderSheet);
+	public <T extends Event, R extends EventResult> R getSpecificEventResult(OrderSheet orderSheet, Class<T> eventClass) {
+		return (R)extractEvent(eventClass).getEventBenefits(orderSheet);
 	}
 
-	public Set<EventResult> getEventResult(OrderSheet orderSheet) {
+	public Set<EventResult> getEventResults(OrderSheet orderSheet) {
 		if (isSatisfiedBy(orderSheet)) {
-			return calculate(orderSheet, events);
+			return calculatorService.calculate(orderSheet, events);
 		}
 		return null;
 	}
 
 	public int getExpectedPayment(OrderSheet orderSheet) {
 		if (isSatisfiedBy(orderSheet)) {
-			return orderSheet.getTotalPayment() + getTotalBenefits(calculate(orderSheet, extractDiscountableEvents()));
+			int discountAmount = getEventBenefits(calculatorService.calculate(orderSheet, extractDiscountableEvents()));
+			return calculatorService.calculateExpectedPayment(orderSheet.getTotalPayment(), discountAmount);
 		}
 		return orderSheet.getTotalPayment();
 	}
 
-	public int getTotalBenefits(Set<EventResult> results) {
-		return calculateTotalBenefits(results);
+	public int getEventBenefits(Set<EventResult> results) {
+		return calculatorService.calculateEventBenefits(results);
 	}
 
 	public BadgeResult getBadge(int totalBenefits) {
@@ -58,17 +59,6 @@ public class EventPlannerService {
 
 	private boolean isSatisfiedBy(OrderSheet orderSheet) {
 		return orderSheet.getTotalPayment() >= eventCondition;
-	}
-
-	private Set<EventResult> calculate(OrderSheet orderSheet, Set<Event> events) {
-		return events.stream()
-			.map(event-> event.getEventBenefits(orderSheet))
-			.filter(eventResult -> eventResult!=null)
-			.collect(Collectors.toSet());
-	}
-
-	private int calculateTotalBenefits(Set<EventResult> results) {
-		return results.stream().mapToInt(result -> result.getBenefit()).sum();
 	}
 
 	private Set<Event> extractDiscountableEvents() {

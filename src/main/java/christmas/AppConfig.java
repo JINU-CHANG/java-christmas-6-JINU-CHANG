@@ -5,6 +5,7 @@ import java.util.Set;
 
 import christmas.domain.event.ChristmasDDayEvent;
 import christmas.domain.event.Event;
+import christmas.service.CalculatorService;
 import christmas.service.EventPlannerService;
 import christmas.domain.event.EventType;
 import christmas.domain.event.PresentEvent;
@@ -14,7 +15,7 @@ import christmas.domain.event.WeekendEvent;
 
 public class AppConfig {
 	public EventPlannerService createEventPlanner() {
-		return new EventPlannerService(createEvents());
+		return new EventPlannerService(createEvents(), new CalculatorService());
 	}
 	public Set<Event> createEvents() {
 		ChristmasDDayEvent christmasDDayEvent = new ChristmasDDayEvent(EventType.CHRISTMAS_DDAY,

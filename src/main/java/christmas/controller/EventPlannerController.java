@@ -3,6 +3,7 @@ package christmas.controller;
 import java.util.Set;
 import java.util.function.Supplier;
 
+import christmas.domain.event.PresentEvent;
 import christmas.service.EventPlannerService;
 import christmas.domain.order.OrderSheet;
 import christmas.dto.order.OrderInput;
@@ -47,9 +48,9 @@ public class EventPlannerController {
 	}
 
 	private void showEventBenefits(OrderSheet orderSheet) {
-		OutputView.printPresentEventResult(eventPlannerService.getPresentEventResult(orderSheet));
+		OutputView.printPresentEventResult(eventPlannerService.getSpecificEventResult(orderSheet, PresentEvent.class));
 
-		Set<EventResult> results = eventPlannerService.getEventResult(orderSheet);
+		Set<EventResult> results = eventPlannerService.getEventResults(orderSheet);
 		OutputView.printEventBenefits(results);
 
 		int totalBenefits = eventPlannerService.getTotalBenefits(results);
