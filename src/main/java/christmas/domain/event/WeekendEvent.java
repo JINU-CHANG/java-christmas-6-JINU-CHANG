@@ -8,7 +8,7 @@ import christmas.domain.order.OrderSheet;
 import christmas.dto.result.EventResult;
 import christmas.dto.result.WeekendEventResult;
 
-public class WeekendEvent extends Event{
+public class WeekendEvent extends Event implements Discountable{
 	private static final MenuType applicableMenuType = MenuType.MAIN;
 	private static final int discount = -2_023;
 

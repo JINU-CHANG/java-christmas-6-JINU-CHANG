@@ -54,6 +54,7 @@ public class EventPlannerController {
 
 		int totalBenefits = eventPlannerService.getTotalBenefits(results);
 		OutputView.printTotalBenefits(eventPlannerService.getTotalBenefits(results));
+		OutputView.printExpectedPayment(eventPlannerService.getExpectedPayment(orderSheet));
 	}
 
 	private void showBadge(int totalBenefits) {

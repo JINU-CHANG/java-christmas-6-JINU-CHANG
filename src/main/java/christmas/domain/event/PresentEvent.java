@@ -1,6 +1,7 @@
 package christmas.domain.event;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import christmas.domain.menu.Menu;
 import christmas.domain.order.OrderSheet;
@@ -24,7 +25,8 @@ public class PresentEvent extends Event{
 	@Override
 	public EventResult getEventBenefits(OrderSheet orderSheet) {
 		if (isSatisfiedBy(orderSheet)) {
-			return new PresentEventResult(eventType.getName(), (-1)*present.getPrice(), Menu.CHAMPAGNE, presentQuantity);
+			return new PresentEventResult(eventType.getName(), (-1) * present.getPrice(), Menu.CHAMPAGNE,
+				presentQuantity);
 		}
 		return null;
 	}

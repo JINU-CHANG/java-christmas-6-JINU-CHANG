@@ -21,6 +21,7 @@ public class OutputView {
 	public static final String EVENT_BENEFITS_TITLE = "<혜택 내역>";
 	public static final String EVENT_BENEFITS_FORMAT = "%s: %s원";
 	public static final String BENEFITS_FORMAT = "<총혜택 금액>\n%s원";
+	public static final String PAYMENT_AFTER_EVENT_EVENT_FORMAT = "<할인 후 예상 결제 금액>\n%s원";
 	private static final DecimalFormat decimalFormat = new DecimalFormat("###,###");
 
 	public static void printGreeting() {
@@ -74,10 +75,16 @@ public class OutputView {
 
 	public static void printTotalBenefits(int totalBenefits) {
 		System.out.println(String.format(BENEFITS_FORMAT, decimalFormat.format(totalBenefits)));
+		System.out.println();
 	}
 
 	private static void printNotExist() {
 		System.out.println(NOT_EXIST);
+		System.out.println();
+	}
+
+	public static void printExpectedPayment(int expectedPayment) {
+		System.out.println(String.format(PAYMENT_AFTER_EVENT_EVENT_FORMAT, decimalFormat.format(expectedPayment)));
 		System.out.println();
 	}
 }
