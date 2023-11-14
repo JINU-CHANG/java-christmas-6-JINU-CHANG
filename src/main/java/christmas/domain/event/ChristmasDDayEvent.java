@@ -1,7 +1,6 @@
 package christmas.domain.event;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 import christmas.domain.order.OrderSheet;
 import christmas.dto.result.ChristmasDDayEventResult;
@@ -29,6 +28,10 @@ public class ChristmasDDayEvent extends Event implements Discountable{
 	}
 
 	private int calculateDiscount(OrderSheet orderSheet) {
-		return (baseDiscount + ((orderSheet.getVisitDate().getDayOfMonth()-1) * increment));
+		return (baseDiscount + (getDuration(orderSheet) * increment));
+	}
+
+	private int getDuration(OrderSheet orderSheet){
+		return orderSheet.getVisitDate().getDayOfMonth() - startDate.getDayOfMonth();
 	}
 }

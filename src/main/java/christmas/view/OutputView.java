@@ -2,10 +2,8 @@ package christmas.view;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
-import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import christmas.domain.menu.Menu;
 import christmas.dto.badge.BadgeResult;
@@ -83,7 +81,7 @@ public class OutputView {
 			return;
 		}
 
-		printMessage(badge.toString());
+		printMessage(badge.getName());
 	}
 
 	private static void printNotExist() {

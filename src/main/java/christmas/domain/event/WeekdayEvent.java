@@ -25,7 +25,7 @@ public class WeekdayEvent extends Event implements Discountable{
 	public EventResult getEventBenefits(OrderSheet orderSheet) {
 		if (isSatisfiedBy(orderSheet)) {
 			int benefitSum = orderSheet.getOrders().entrySet().stream()
-				.filter(order -> order.getKey().getType().equals(applicableMenuType))
+				.filter(order -> order.getKey().getType().equals(applicableMenuType)) //TODO 함수추출
 				.mapToInt(order -> order.getValue() * discount)
 				.sum();
 

@@ -6,4 +6,8 @@ public class BadgeResult {
 	public BadgeResult(String name) {
 		this.name = name;
 	}
+
+	public String getName() {
+		return name;
+	}
 }

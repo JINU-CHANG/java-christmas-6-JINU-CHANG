@@ -40,11 +40,14 @@ public class EventPlannerService {
 	}
 
 	public int getExpectedPayment(OrderSheet orderSheet) {
-		if (isSatisfiedBy(orderSheet)) {
-			int discountAmount = getTotalBenefits(calculatorService.calculate(orderSheet, extractDiscountableEvents()));
-			return calculatorService.calculateExpectedPayment(orderSheet.getTotalPayment(), discountAmount);
+		if (!isSatisfiedBy(orderSheet)) {
+			return orderSheet.getTotalPayment();
 		}
-		return orderSheet.getTotalPayment();
+
+		Set<Event> discountableEvents = extractDiscountableEvents();
+		Set<EventResult> eventResults = calculatorService.calculate(orderSheet, discountableEvents);
+		int discountAmount = getTotalBenefits(eventResults);
+		return calculatorService.calculateExpectedPayment(orderSheet.getTotalPayment(), discountAmount);
 	}
 
 	public int getTotalBenefits(Set<EventResult> results) {

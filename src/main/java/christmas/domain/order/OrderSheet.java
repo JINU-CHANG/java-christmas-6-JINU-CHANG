@@ -28,7 +28,7 @@ public class OrderSheet {
 	public int getTotalPayment() {
 		return orders.entrySet()
 			.stream()
-			.mapToInt(entry -> ((Menu)entry.getKey()).getPayment(entry.getValue()))
+			.mapToInt(entry -> entry.getKey().getPayment(entry.getValue()))
 			.sum();
 	}
 

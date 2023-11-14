@@ -1,7 +1,6 @@
 package christmas.domain.badge;
 
 import java.util.Arrays;
-import java.util.Optional;
 import java.util.function.Predicate;
 
 public enum Badge {
