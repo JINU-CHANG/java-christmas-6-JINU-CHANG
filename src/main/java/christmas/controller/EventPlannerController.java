@@ -68,7 +68,7 @@ public class EventPlannerController {
 	}
 
 	private void showBadge(int totalBenefits) {
-		eventPlannerService.getBadge(totalBenefits);
+		OutputView.printBadgeResult(eventPlannerService.getBadge(totalBenefits));
 	}
 
 	private <T> T tryUntilInputIsValid(Supplier<T> function) {

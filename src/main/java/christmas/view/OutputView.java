@@ -2,11 +2,13 @@ package christmas.view;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import christmas.domain.menu.Menu;
-import christmas.domain.order.OrderSheet;
+import christmas.dto.badge.BadgeResult;
 import christmas.dto.result.EventResult;
 import christmas.dto.result.PresentEventResult;
 
@@ -21,68 +23,74 @@ public class OutputView {
 	public static final String EVENT_BENEFITS_TITLE = "<혜택 내역>";
 	public static final String EVENT_BENEFITS_FORMAT = "%s: %s원";
 	public static final String TOTAL_BENEFITS_FORMAT = "<총혜택 금액>\n%s원\n";
-	public static final String EXPECTED_PAYMENT_FORMAT = "<할인 후 예상 결제 금액>\n%s원";
+	public static final String EXPECTED_PAYMENT_FORMAT = "<할인 후 예상 결제 금액>\n%s원\n";
+	public static final String EVENT_BADGE_TITLE = "<12월 이벤트 배지>";
 	private static final DecimalFormat decimalFormat = new DecimalFormat("###,###");
 
 	public static void printGreeting() {
-		System.out.println(GREETING_MESSAGE);
+		printMessage(GREETING_MESSAGE);
 	}
 
 	public static void printStartEventPlanner(LocalDate localDate) {
-		System.out.println(String.format(START_EVENT_PLANNER_MESSAGE, localDate.getDayOfMonth()));
+		printMessage(START_EVENT_PLANNER_MESSAGE, localDate.getDayOfMonth());
 	}
 
 	public static void printOrders(Map<Menu, Integer> orders) {
-		System.out.println(ORDERS_TITLE);
+		printMessage(ORDERS_TITLE);
 
-		orders.forEach((menu, quantity) -> System.out.println(String.format(MENU_QUANTITY_FORMAT, menu.getMenuName(), quantity)));
+		orders.forEach((menu, quantity) -> printMessage(MENU_QUANTITY_FORMAT, menu.getMenuName(), quantity));
 		System.out.println();
 	}
 
 	public static void printTotalPayment(int totalPayment) {
-		System.out.println(String.format(TOTAL_PAYMENT_FORMAT, decimalFormat.format(totalPayment)));
+		printMessage(TOTAL_PAYMENT_FORMAT, decimalFormat.format(totalPayment));
 	}
 
 	public static void printPresentEventResult(PresentEventResult presentEventResult) {
-		System.out.println(PRESENT_EVENT_TITLE);
-
+		printMessage(PRESENT_EVENT_TITLE);
 		if (presentEventResult == null) {
 			printNotExist();
 			return;
 		}
 
-		System.out.println(String.format(MENU_QUANTITY_FORMAT,
-			presentEventResult.getPresent(),
-			presentEventResult.getPresentQuantity()));
+		printMessage(MENU_QUANTITY_FORMAT, presentEventResult.getPresent(), presentEventResult.getPresentQuantity());
 		System.out.println();
 	}
 
 	public static void printEventResults(Set<EventResult> events) {
-		System.out.println(EVENT_BENEFITS_TITLE);
-
+		printMessage(EVENT_BENEFITS_TITLE);
 		if (events == null) {
 			printNotExist();
 			return;
 		}
 
-		for (EventResult eventResult : events) {
-			System.out.println(String.format(EVENT_BENEFITS_FORMAT,
-				eventResult.getName(),
-				decimalFormat.format(eventResult.getBenefit())));
-		}
+		events.forEach(event -> printMessage(EVENT_BENEFITS_FORMAT, event.getName(), decimalFormat.format(event.getBenefit())));
 		System.out.println();
 	}
 
 	public static void printEventBenefits(int eventBenefits) {
-		System.out.println(String.format(TOTAL_BENEFITS_FORMAT, decimalFormat.format(eventBenefits)));
-	}
-
-	private static void printNotExist() {
-		System.out.println(NOT_EXIST);
+		printMessage(TOTAL_BENEFITS_FORMAT, decimalFormat.format(eventBenefits));
 	}
 
 	public static void printExpectedPayment(int expectedPayment) {
-		System.out.println(String.format(EXPECTED_PAYMENT_FORMAT, decimalFormat.format(expectedPayment)));
-		System.out.println();
+		printMessage(String.format(EXPECTED_PAYMENT_FORMAT, decimalFormat.format(expectedPayment)));
+	}
+
+	public static void printBadgeResult(BadgeResult badge) {
+		printMessage(EVENT_BADGE_TITLE);
+		if (badge == null) {
+			printNotExist();
+			return;
+		}
+
+		printMessage(badge.toString());
+	}
+
+	private static void printNotExist() {
+		printMessage(NOT_EXIST);
+	}
+
+	private static <T> void printMessage(String format, T... args) {
+		System.out.println(String.format(format, args));
 	}
 }
