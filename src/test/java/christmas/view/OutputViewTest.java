@@ -38,7 +38,7 @@ public class OutputViewTest {
 		OrderSheet orderSheet = new OrderSheet(new VisitDate(visitDate), new OrderInput("해산물파스타-2,레드와인-1,초코케이크-1"));
 		OutputView.printStartEventPlanner(orderSheet.getVisitDate());
 
-		assertThat(output.toString().trim()).isEqualTo(String.format(EVENT_BENEFITS_START_MESSAGE, visitDate).trim());
+		assertThat(output.toString().trim()).isEqualTo(String.format(START_EVENT_PLANNER_MESSAGE, visitDate).trim());
 	}
 
 	@DisplayName("주문 출력 형식을 확인한다. 이때 출력 순서는 고려하지 않는다.")
@@ -57,7 +57,7 @@ public class OutputViewTest {
 	void testPrintTotalPayment() {
 		OutputView.printTotalPayment(15000);
 
-		assertThat(output.toString().trim()).isEqualTo(String.format(PAYMENT_BEFORE_EVENT_FORMAT,"15,000").trim());
+		assertThat(output.toString().trim()).isEqualTo(String.format(TOTAL_PAYMENT_FORMAT,"15,000").trim());
 	}
 
 	@DisplayName("증정 이벤트 결과를 출력한다.")
@@ -66,7 +66,7 @@ public class OutputViewTest {
 		PresentEventResult presentEventResult = new PresentEventResult("증정 이벤트", 25000, Menu.CHAMPAGNE, 1);
 		OutputView.printPresentEventResult(presentEventResult);
 
-		assertThat(output.toString().trim()).isEqualTo((PRESENT_EVENT_FORMAT+"\n샴페인 1개\n").trim());
+		assertThat(output.toString().trim()).isEqualTo((PRESENT_EVENT_TITLE+"\n샴페인 1개\n").trim());
 	}
 
 	@DisplayName("증정 이벤트 결과가 존재하지 않으면 없음을 출력한다.")
@@ -75,6 +75,6 @@ public class OutputViewTest {
 		PresentEventResult presentEventResult = null;
 		OutputView.printPresentEventResult(presentEventResult);
 
-		assertThat(output.toString().trim()).isEqualTo((PRESENT_EVENT_FORMAT+"\n"+NOT_EXIST+"\n").trim());
+		assertThat(output.toString().trim()).isEqualTo((PRESENT_EVENT_TITLE+"\n"+NOT_EXIST+"\n").trim());
 	}
 }
