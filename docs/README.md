@@ -42,14 +42,19 @@
 
 ### 도메인
 
+### <메뉴>
 - Menu
-- OrderForm
-- Event
-- EventCalculator
-- Benefit
-- BadgeProvider
+- MenuType
+
+### <뱃지>
 - Badge
-- Payment
+
+### <이벤트>
+- Event
+- ChristmasDDayEvent / PresentEvent / SpecialEvent / WeekdayEvent / WeekendEvent
+
+### <주문>
+- OrderSheet
 
 ### 할인 목록
 
