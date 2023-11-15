@@ -1,7 +1,6 @@
 package christmas.domain.event;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 import christmas.domain.order.OrderSheet;
 import christmas.dto.result.EventResult;
@@ -17,9 +16,9 @@ public abstract class Event {
 		this.endDate = endDate;
 	}
 
-	protected boolean isDayOfWeekInDuration(LocalDate localDate) {
-		return localDate.compareTo(startDate) >=0 && localDate.compareTo(endDate) <=0;
+	protected boolean isDayOfWeekNotInDuration(LocalDate localDate) {
+		return localDate.isBefore(startDate) || localDate.isAfter(endDate);
 	}
-	protected abstract boolean isSatisfiedBy(OrderSheet orderSheet);
+	protected abstract boolean isNotSatisfiedBy(OrderSheet orderSheet);
 	public abstract EventResult getEventBenefits(OrderSheet orderSheet);
 }

@@ -15,20 +15,20 @@ public class SpecialEvent extends Event implements Discountable{
 	}
 
 	@Override
-	protected boolean isSatisfiedBy(OrderSheet orderSheet) {
-		return isDayOfWeekInDuration(orderSheet.getVisitDate()) && isSpecialDay(orderSheet.getVisitDate());
+	protected boolean isNotSatisfiedBy(OrderSheet orderSheet) {
+		return isDayOfWeekNotInDuration(orderSheet.getVisitDate()) || isNotSpecialDay(orderSheet.getVisitDate());
 	}
 
 	@Override
 	public EventResult getEventBenefits(OrderSheet orderSheet) {
-		if (isSatisfiedBy(orderSheet)) {
-			return new SpecialEventResult(eventType.getName(), discount);
+		if (isNotSatisfiedBy(orderSheet)) {
+			return null;
 		}
-		return null;
+		return new SpecialEventResult(eventType.getName(), discount);
 	}
 
-	private boolean isSpecialDay(LocalDate localDate) {
-		return (localDate.getDayOfWeek().equals(DayOfWeek.SUNDAY)) || (localDate.getDayOfMonth()==25);
+	private boolean isNotSpecialDay(LocalDate localDate) {
+		return !(localDate.getDayOfWeek().equals(DayOfWeek.SUNDAY) || (localDate.getDayOfMonth()==25));
 	}
 
 }

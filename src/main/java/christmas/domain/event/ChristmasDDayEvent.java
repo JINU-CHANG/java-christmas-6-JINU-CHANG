@@ -15,16 +15,17 @@ public class ChristmasDDayEvent extends Event implements Discountable{
 	}
 
 	@Override
-	public boolean isSatisfiedBy(OrderSheet orderSheet) {
-		return isDayOfWeekInDuration(orderSheet.getVisitDate());
+	public boolean isNotSatisfiedBy(OrderSheet orderSheet) {
+		return isDayOfWeekNotInDuration(orderSheet.getVisitDate());
 	}
 
 	@Override
 	public EventResult getEventBenefits(OrderSheet orderSheet) {
-		if (isSatisfiedBy(orderSheet)) {
-			return new ChristmasDDayEventResult(eventType.getName(), calculateDiscount(orderSheet));
+		if (isNotSatisfiedBy(orderSheet)) {
+			return null;
 		}
-		return null;
+
+		return new ChristmasDDayEventResult(eventType.getName(), calculateDiscount(orderSheet));
 	}
 
 	private int calculateDiscount(OrderSheet orderSheet) {

@@ -1,7 +1,6 @@
 package christmas.domain.event;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 import christmas.domain.menu.Menu;
 import christmas.domain.order.OrderSheet;
@@ -18,19 +17,20 @@ public class PresentEvent extends Event{
 	}
 
 	@Override
-	protected boolean isSatisfiedBy(OrderSheet orderSheet) {
-		return isDayOfWeekInDuration(orderSheet.getVisitDate()) && isMoreThanStandardPayment(orderSheet.getTotalPayment());
+	protected boolean isNotSatisfiedBy(OrderSheet orderSheet) {
+		return isDayOfWeekNotInDuration(orderSheet.getVisitDate()) || isLessThanRequiredPayment(orderSheet.getTotalPayment());
 	}
 
 	@Override
 	public EventResult getEventBenefits(OrderSheet orderSheet) {
-		if (isSatisfiedBy(orderSheet)) {
-			return new PresentEventResult(eventType.getName(), present.getPrice(), Menu.CHAMPAGNE, presentQuantity);
+		if (isNotSatisfiedBy(orderSheet)) {
+			return null;
 		}
-		return null;
+
+		return new PresentEventResult(eventType.getName(), present.getPrice(), Menu.CHAMPAGNE, presentQuantity);
 	}
 
-	private boolean isMoreThanStandardPayment(int totalPayment) {
-		return totalPayment >= requiredPayment;
+	private boolean isLessThanRequiredPayment(int totalPayment) {
+		return totalPayment < requiredPayment;
 	}
 }
