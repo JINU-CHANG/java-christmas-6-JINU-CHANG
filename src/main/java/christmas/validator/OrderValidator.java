@@ -1,7 +1,6 @@
 package christmas.validator;
 
 import java.util.Arrays;
-import java.util.Map;
 
 import christmas.domain.menu.Menu;
 import christmas.domain.menu.MenuType;

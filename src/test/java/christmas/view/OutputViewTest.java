@@ -1,6 +1,9 @@
 package christmas.view;
 
-import static christmas.view.OutputView.*;
+import static christmas.view.OutputView.START_EVENT_PLANNER_MESSAGE;
+import static christmas.view.OutputView.TOTAL_PAYMENT_FORMAT;
+import static christmas.view.OutputView.PRESENT_EVENT_TITLE;
+import static christmas.view.OutputView.NOT_EXIST;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.ByteArrayOutputStream;

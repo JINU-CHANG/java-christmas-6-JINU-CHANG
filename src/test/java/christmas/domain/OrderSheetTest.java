@@ -1,7 +1,7 @@
 package christmas.domain;
 
 import static christmas.exception.MenuNotFoundException.MENU_NOT_FOUND_MESSAGE;
-import static java.util.Map.*;
+import static java.util.Map.entry;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
