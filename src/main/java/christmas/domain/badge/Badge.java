@@ -20,7 +20,7 @@ public enum Badge {
 		return Arrays.stream(Badge.values())
 				.filter(badge -> badge.condition.test(benefits))
 				.findFirst()
-			.orElse(null);
+				.orElse(null);
 	}
 
 	public String getName() {

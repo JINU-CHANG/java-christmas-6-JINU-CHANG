@@ -19,6 +19,8 @@ public abstract class Event {
 	protected boolean isDayOfWeekNotInDuration(LocalDate localDate) {
 		return localDate.isBefore(startDate) || localDate.isAfter(endDate);
 	}
+
 	protected abstract boolean isNotSatisfiedBy(OrderSheet orderSheet);
+
 	public abstract EventResult getEventBenefits(OrderSheet orderSheet);
 }

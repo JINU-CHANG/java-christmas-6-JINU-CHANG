@@ -33,14 +33,15 @@ public class EventPlannerService {
 	}
 
 	public Set<EventResult> getEventResults(OrderSheet orderSheet) {
-		if (isSatisfiedBy(orderSheet)) {
-			return calculatorService.calculate(orderSheet, events);
+		if (isNotSatisfiedBy(orderSheet)) {
+			return null;
 		}
-		return null;
+
+		return calculatorService.calculate(orderSheet, events);
 	}
 
 	public int getExpectedPayment(OrderSheet orderSheet) {
-		if (!isSatisfiedBy(orderSheet)) {
+		if (isNotSatisfiedBy(orderSheet)) {
 			return orderSheet.getTotalPayment();
 		}
 
@@ -63,8 +64,8 @@ public class EventPlannerService {
 			.orElse(null);
 	}
 
-	private boolean isSatisfiedBy(OrderSheet orderSheet) {
-		return orderSheet.getTotalPayment() >= eventCondition;
+	private boolean isNotSatisfiedBy(OrderSheet orderSheet) {
+		return orderSheet.getTotalPayment() < eventCondition;
 	}
 
 	private Set<Event> extractDiscountableEvents() {

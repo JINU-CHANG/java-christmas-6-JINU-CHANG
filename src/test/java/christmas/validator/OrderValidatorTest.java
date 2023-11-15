@@ -58,6 +58,6 @@ public class OrderValidatorTest {
 
 		assertThatThrownBy(() -> orderValidator.validateOrderOnlyDrinks(drinksOrder))
 			.isExactlyInstanceOf(DrinksOnlyOrderException.class)
-			.hasMessageContaining(DrinksOnlyOrderException.EXCEPTION_MESSAGE);
+			.hasMessageContaining(DrinksOnlyOrderException.INVALID_ORDER_MESSAGE);
 	}
 }
