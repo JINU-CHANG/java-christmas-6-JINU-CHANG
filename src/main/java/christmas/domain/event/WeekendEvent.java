@@ -10,7 +10,7 @@ import christmas.dto.result.WeekendEventResult;
 
 public class WeekendEvent extends Event implements Discountable{
 	private static final MenuType applicableMenuType = MenuType.MAIN;
-	private static final int discount = -2_023;
+	private static final int discount = 2_023;
 
 	public WeekendEvent(EventType eventType, LocalDate startDate, LocalDate endDate) {
 		super(eventType, startDate, endDate);

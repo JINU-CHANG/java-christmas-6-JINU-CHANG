@@ -62,12 +62,12 @@ public class OutputView {
 			return;
 		}
 
-		events.forEach(event -> printMessage(EVENT_BENEFITS_FORMAT, event.getName(), decimalFormat.format(event.getBenefit())));
+		events.forEach(event -> printMessage(EVENT_BENEFITS_FORMAT, event.getName(), decimalFormat.format((-1) * event.getBenefit())));
 		System.out.println();
 	}
 
 	public static void printEventBenefits(int eventBenefits) {
-		printMessage(TOTAL_BENEFITS_FORMAT, decimalFormat.format(eventBenefits));
+		printMessage(TOTAL_BENEFITS_FORMAT, decimalFormat.format((-1) * eventBenefits));
 	}
 
 	public static void printExpectedPayment(int expectedPayment) {

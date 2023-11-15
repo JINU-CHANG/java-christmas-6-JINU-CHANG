@@ -7,8 +7,8 @@ import christmas.dto.result.ChristmasDDayEventResult;
 import christmas.dto.result.EventResult;
 
 public class ChristmasDDayEvent extends Event implements Discountable{
-	private static final int baseDiscount = -1_000;
-	private static final int increment = -100;
+	private static final int baseDiscount = 1_000;
+	private static final int increment = 100;
 
 	public ChristmasDDayEvent(EventType eventType, LocalDate startDate, LocalDate endDate) {
 		super(eventType, startDate, endDate);

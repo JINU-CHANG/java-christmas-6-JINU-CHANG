@@ -25,7 +25,7 @@ public class PresentEvent extends Event{
 	@Override
 	public EventResult getEventBenefits(OrderSheet orderSheet) {
 		if (isSatisfiedBy(orderSheet)) {
-			return new PresentEventResult(eventType.getName(), (-1) * present.getPrice(), Menu.CHAMPAGNE, presentQuantity);
+			return new PresentEventResult(eventType.getName(), present.getPrice(), Menu.CHAMPAGNE, presentQuantity);
 		}
 		return null;
 	}

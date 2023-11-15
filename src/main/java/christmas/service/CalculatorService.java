@@ -16,7 +16,7 @@ public class CalculatorService {
 	}
 
 	public int calculateExpectedPayment(int totalPayment, int discountAmount) {
-		return totalPayment + discountAmount;
+		return totalPayment - discountAmount;
 	}
 
 	public int calculateEventBenefits(Set<EventResult> results) {
