@@ -18,7 +18,7 @@ import christmas.dto.result.EventResult;
 public class WeekendEventTest {
 	private Event weekendEvent = createEvent();
 
-	@DisplayName("방문 요일이 주말이면 혜택금액을 반환한다.")
+	@DisplayName("방문 요일이 주말이면 null을 반환하지 않는다.")
 	@Test
 	void testVisitDateIsWeekend() {
 		int weekendVisitDate = 2; //토요일
@@ -27,7 +27,7 @@ public class WeekendEventTest {
 		assertThat(weekendEvent.getEventBenefits(orderSheet)).isNotEqualTo(null);
 	}
 
-	@DisplayName("방문 요일이 주말이 아니면 false값을 반환한다.")
+	@DisplayName("방문 요일이 주말이 아니면 null을 반환한다.")
 	@Test
 	void testVisitDateIsNotWeekend() {
 		int notWeekendVisitDate = 3; //일요일
@@ -44,7 +44,7 @@ public class WeekendEventTest {
 		EventResult weekendEventResult = weekendEvent.getEventBenefits(orderSheet);
 
 		assertThat(weekendEventResult).extracting("name", "benefit")
-			.containsExactlyInAnyOrder("주말 할인", -6069);
+			.containsExactlyInAnyOrder("주말 할인", 6069);
 	}
 
 	private Event createEvent() {

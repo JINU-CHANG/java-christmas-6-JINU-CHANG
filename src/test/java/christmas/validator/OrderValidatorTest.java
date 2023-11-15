@@ -11,7 +11,6 @@ import christmas.exception.DrinksOnlyOrderException;
 import christmas.exception.OrderDuplicationException;
 import christmas.exception.OrderFormatPatternException;
 import christmas.exception.OrderQuantityException;
-import christmas.validator.OrderValidator;
 
 public class OrderValidatorTest {
 	private OrderValidator orderValidator = new OrderValidator();

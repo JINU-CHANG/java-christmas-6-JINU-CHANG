@@ -26,7 +26,7 @@ public class ChristmasDDayEventTest {
 		EventResult eventResult = christmasDDayEvent.getEventBenefits(orderSheet);
 
 		assertThat(eventResult).extracting("name", "benefit")
-			.containsExactlyInAnyOrder("크리스마스 디데이 할인", -1100);
+			.containsExactlyInAnyOrder("크리스마스 디데이 할인", 1100);
 	}
 
 	private Event createEvent() {
